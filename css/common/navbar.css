@@ -1,0 +1,41 @@
+﻿.navbar {
+    float: left;
+    width: 220px;
+    height: 100vh;
+    background-color: #ffffff;
+    border-right: 1px solid #e5e5e5;
+}
+    .navbar .logo-site, .navbar .logo-box {
+        display: flex;
+        width: 100%;
+        height: 60px;
+    }
+        .navbar .logo-box {
+            /*padding: 24px 0 0 24px;*/
+            position: absolute;
+            top: 24px;
+        }
+
+        /* Logo page */
+        .navbar .logo-box .toggle-icon {
+            width: 24px;
+            height: 24px;
+            background-image: url('../../content/img/toggle.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .navbar .logo-box .amis-logo {
+            width: 100%;
+            height: 24px;
+            background-image: url('../../content/img/cukcuk-logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }   
+
+    .navbar .navbar-content {
+        width: 100%;
+    }
+
+        
+

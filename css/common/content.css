@@ -1,0 +1,11 @@
+﻿.content {
+    /*float: left;*/
+
+    position: absolute;
+    top: 61px;
+    left: 221px;
+
+    width: calc(100% - 221px);
+    height: calc(100vh - 61px);
+    background-color: #e9ebee;
+}
