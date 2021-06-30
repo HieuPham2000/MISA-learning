@@ -2,10 +2,49 @@
     /*float: left;*/
 
     position: absolute;
-    top: 61px;
+    top: 49px;
     left: 221px;
 
+    /* width: calc(100% - 221px - 32px);
+    height: calc(100vh - 49px - 32px); */
     width: calc(100% - 221px);
-    height: calc(100vh - 61px);
-    background-color: #e9ebee;
+    height: calc(100vh - 49px);
+    background-color: #ffffff;
+
+    /* padding: 16px; */
+}
+
+/* Page title */
+.content .header-content {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+    .content .header-content .title {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .content .header-content .content-feature {
+        position: absolute;
+        right: 16px;
+    }
+
+
+/* Filter bar */
+.content .filer-bar {
+
+
+}
+
+/* grid */
+.content .grid {
+
+}
+
+/* paging */
+.content .paging-bar {
+
 }

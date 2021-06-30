@@ -2,6 +2,7 @@
     font-family: GoogleSans-Regular;
     font-size: 13px;
     margin: 0;
+    /* box-sizing: border-box; */
 }
 
 @font-face {
@@ -22,4 +23,9 @@
 @font-face {
     font-family: 'GoogleSans-Light';
     src: url('/content/font/GoogleSans-Light.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'GoogleSans-Medium';
+    src: url('/content/font/GoogleSans-Medium.otf') format('opentype');
 }

@@ -3,11 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <link href="/css/common/main.css" rel="stylesheet" />
-    <link href="/css/common/header.css" rel="stylesheet" />
-    <link href="/css/common/navbar.css" rel="stylesheet" />
-    <link href="/css/common/content.css" rel="stylesheet" />
-    <link href="/css/page/employee.css" rel="stylesheet" />
+    <link href="../content/font/fontawesome-5.15.1/css/all.min.css" rel="stylesheet" />
+    <link href="../css/common/main.css" rel="stylesheet" />
+    <link href="../css/common/icon.css" rel="stylesheet" />
+    <link href="../css/common/button.css" rel="stylesheet" />
+    <link href="../css/common/toolbar.css" rel="stylesheet" />
+    <link href="../css/common/header.css" rel="stylesheet" />
+    <link href="../css/common/navbar.css" rel="stylesheet" />
+    <link href="../css/common/content.css" rel="stylesheet" />
+    <link href="../css/page/employee.css" rel="stylesheet" />
 </head>
 <body>
     <div class="navbar">
@@ -17,9 +21,81 @@
                 <div class="amis-logo"></div>
             </div> 
         </div>
-        <div class="navbar-content"></div>
+        <div class="navbar-content">
+            <div class="nav-item">
+                <div class="nav-item-icon nav-item-dashboard"></div>
+                <div class="nav-item-text">Tổng quan</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-item-icon nav-item-report"></div>
+                <div class="nav-item-text">Báo cáo</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-item-icon nav-item-buy"></div>
+                <div class="nav-item-text">Mua hàng</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-item-icon nav-item-customer"></div>
+                <div class="nav-item-text">Danh mục khách hàng</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-item-icon nav-item-employee"></div>
+                <div class="nav-item-text">Danh mục nhân viên</div>
+            </div>
+            <div class="nav-item">
+                <div class="nav-item-icon nav-item-setting"></div>
+                <div class="nav-item-text">Thiết lập hệ thóng</div>
+            </div>
+        </div>
     </div>
-    <div class="header">header</div>
-    <div class="content">content</div>
+    <div class="header">
+        <div class="header-left">
+            <!-- <span class="header-left-name">Nhà hàng Biển Đông</span>
+            <i class="header-left-icon fas fa-angle-down"></i> -->
+            <!-- <div class="header-left-dropdown">
+                <p>Nhà hàng Biển Đông</p>
+                <p>Nhà hàng Biển Tây</p>
+                <p>Nhà hàng Biển Nam</p>
+                <p>Nhà hàng Biển Bắc</p>
+            </div> -->
+            <select class="header-left-select">
+                <option>Nhà hàng Biển Đông</option>
+                <option>Nhà hàng Biển Tây</option>
+                <option>Nhà hàng Biển Nam</option>
+                <option>Nhà hàng Biển Bắc</option>
+            </select>
+        </div>
+
+        <div class="header-right">
+            <img class="header-right-image" src="/content/icon/avatar-default.png">
+            <div class="header-right-name">Nguyễn Văn Mạnh</div>
+            <img class="header-right-icon" src="/content/icon/option.png">
+        </div>
+    </div>
+    <div class="content">
+        <div class="header-content">
+            <div class="title">Danh sách nhân viên</div>
+            <div class="content-feature">
+                <button class="m-btn">
+                    <!-- <img class="btn-icon" src="/content/icon/add.png">
+                    <span class="btn-name">Thêm nhân viên</span> -->
+                    <div class="m-btn-icon icon-add"></div>
+                    <div class="btn-text">Thêm nhân viên</div>
+                </button>
+                
+            </div>
+        </div>
+        <div class="filter-bar">
+            <div class="filter-left">
+                <input type="text" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
+                <select>
+                    <option>Phòng đào tạo</option>
+                </select>
+            </div>
+            <div class="filter-right"></div>
+        </div>
+        <div class="grid"></div>
+        <div class="paging-bar"></div>
+    </div>
 </body>
 </html>
