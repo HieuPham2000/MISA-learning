@@ -1,3 +1,9 @@
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
 .m-btn {
   display: flex;
   align-items: center;
@@ -14,21 +20,89 @@
   cursor: pointer;
 }
 
-.m-btn:hover {
-  background-color: #2FBE8E;
-}
+  .m-btn:hover {
+    background-color: #2FBE8E;
+  }
 
-.icon-add {
-    background-image: url('/content/icon/add.png');
-}
+  .m-btn-icon {
+    width: 16px;
+    height: 16px;
+    /* background-size: contain; */
+    background-position: center;
+  }
 
-.m-btn-icon {
-  width: 16px;
-  height: 16px;
-  /* background-size: contain; */
+  .m-btn .btn-text {
+    margin-left: 8px;
+  }
+
+.m-second-button {
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  
+  box-sizing: border-box;
+  height: 40px;
+  /* width: 40px; */
+  background-color: #ffffff;
+  padding-left: 24px;
+  padding-right: 24px;
+  text-align: center;
+}
+  .m-second-button:hover {
+    background-color: #E9EBEE;
+  }
+  /* .m-second-button:active {
+    background-color: #01B075;
+  } */
+
+.m-btn-refresh {
+  background-image: url('/content/icon/refresh.png');
+  background-repeat: no-repeat;
   background-position: center;
 }
 
-.m-btn .btn-text {
-  margin-left: 8px;
+/* paging */
+.m-btn-ctrl-page {
+  width: 40px;
+  height: 40px;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+  .m-btn-first-page {
+    background-image: url('/content/icon/btn-firstpage.svg');
+  }
+
+  .m-btn-prev-page {
+    background-image: url('/content/icon/btn-prev-page.svg');
+  }
+
+  .m-btn-last-page {
+    background-image: url('/content/icon/btn-lastpage.svg');
+  }
+
+  .m-btn-next-page {
+    background-image: url('/content/icon/btn-next-page.svg');
+  }
+
+.m-btn-num-page {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  border: 1px solid #bbbbbb;
+  background-color: #E9EBEE;
+  cursor: pointer;
+}
+
+  .m-btn-num-page:hover {
+    background-color: #ffffff;
+  }
+
+
+
+.m-btn-active {
+  color: #ffffff;
+  border: none;
+  background-color: #019160;
 }

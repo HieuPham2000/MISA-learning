@@ -1,0 +1,47 @@
+input {
+  padding: 10px 16px;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid #bbbbbb;
+  
+  box-sizing: border-box;
+  height: 40px;
+}
+
+  input::placeholder {
+    font-size: 11px;
+    color: #bbbbbb;
+  }
+
+  input:focus::placeholder {
+    opacity: 0;
+  }
+
+  input:focus {
+    border-color: #019160;
+  }
+
+  .input-search {
+    /* 16 + 16 + 8 */
+    padding-left: 40px; 
+  }
+
+.filter-left select {
+  /* chú ý outline */
+  outline: none;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  padding: 10px 0px 10px 16px;
+  margin-left: 10px;
+  width: 180px;
+
+  box-sizing: border-box;
+  height: 40px;
+}
+  .filter-left select:focus {
+    border-color: #019160;
+    
+  }
+
+  
+

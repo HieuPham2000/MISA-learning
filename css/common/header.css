@@ -52,18 +52,20 @@
         width: 32px;
         height: 32px;
         border-radius: 50%;
-        object-fit: contain;
+        background-image: url('/content/icon/avatar-default.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
     }
 
-    /* .header .header-right .header-right-name {
-        height: 24px;
-        line-height: 24px;
-    } */
-
     .header .header-right .header-right-icon {
+        cursor: pointer;
         width: 16px;
         height: 16px;
-        object-fit: contain;
+        background-image: url('/content/icon/option.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
     }
     
 
