@@ -1,14 +1,17 @@
-input {
-  padding: 10px 16px;
-  border-radius: 4px;
-  outline: none;
-  border: 1px solid #bbbbbb;
-  
+input, select {
   box-sizing: border-box;
   height: 40px;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  outline: none;
+}
+
+input {
+  padding: 10px 16px;
 }
 
   input::placeholder {
+    text-align: left;
     font-size: 11px;
     color: #bbbbbb;
   }
@@ -21,27 +24,22 @@ input {
     border-color: #019160;
   }
 
-  .input-search {
-    /* 16 + 16 + 8 */
-    padding-left: 40px; 
+  input + i {
+    position: absolute;
+    color: black;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    font-size: 16px;
   }
 
-.filter-left select {
-  /* chú ý outline */
-  outline: none;
-  border: 1px solid #bbbbbb;
-  border-radius: 4px;
+select {
   padding: 10px 0px 10px 16px;
-  margin-left: 10px;
-  width: 180px;
-
-  box-sizing: border-box;
-  height: 40px;
 }
-  .filter-left select:focus {
+  select:focus {
     border-color: #019160;
-    
   }
+
 
   
 

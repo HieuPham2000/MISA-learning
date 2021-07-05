@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>MISACukCuk - Phần mềm quản lý nhà hàng</title>
+  <link href="../../content/font/fontawesome-5.15.1/css/all.min.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/common/main.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/common/button.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/common/icon.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/common/input.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/page/form-employee.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div class="modal-container">
+    <div class="form-modal">
+      <form>
+        <div class="form-icon-close">
+          <img src="../../content/icon/x.svg">
+        </div>
+        <div class="form-title">Thông tin nhân viên</div>
+        <div class="form-content">
+          <div class="form-content-left">
+            <div class="avatar"></div>
+            <p class="image-format">(Vui lòng chọn ảnh có định dạng<br>.jpg, .jpeg, .png, .gif.)</p>
+          </div>
+          <div class="form-content-right">
+            <div class="content-part">
+              <div class="part-title">A. Thông tin chung:</div>
+              <div class="row">
+                <div class="form-item">
+                  <label for="employee-id">Mã nhân viên (<span>*</span>)</label>
+                  <input type="text" name="employee-id" value="NV000999" placeholder="Nhập mã nhân viên" maxlength="20"
+                    autofocus required>
+                </div>
+                <div class="form-item">
+                  <label for="name">Họ và tên (<span>*</span>)</label>
+                  <input type="text" name="name" placeholder="Nhập họ và tên" maxlength="100" required>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-item">
+                  <label for="birthday">Ngày sinh</label>
+                  <input type="date" name="birthday">
+                </div>
+                <div class="form-item">
+                  <label for="gender">Giới tính</label>
+                  <select name="gender">
+                    <option value="" disabled selected>Chọn giới tính</option>
+                    <option>Nam</option>
+                    <option>Nữ</option>
+                    <option>Khác</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-item">
+                  <label for="people-id">Số CMTND/ Căn cước (<span>*</span>)</label>
+                  <input type="text" name="people-id" placeholder="Nhập số CMTND/ Căn cước" maxlength="12"
+                    onkeypress="return isNumber(event);" required>
+                </div>
+                <div class="form-item">
+                  <label for="date-issue">Ngày cấp</label>
+                  <input type="date" name="date-issue">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-item">
+                  <label for="place-issue">Nơi cấp</label>
+                  <input type="text" name="place-issue" placeholder="Nhập nơi cấp" maxlength="100">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-item">
+                  <label for="email">Email (<span>*</span>)</label>
+                  <input type="email" name="email" placeholder="Nhập email" maxlength="320" required>
+                </div>
+                <div class="form-item">
+                  <label for="phone">Số điện thoại (<span>*</span>)</label>
+                  <input type="tel" name="phone" placeholder="Nhập số điện thoại" maxlength="15"
+                    onkeypress="return isNumber(event);" required>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="content-part">
+              <div class="part-title">B. Thông tin công việc:</div>
+
+              <div class="row">
+                <div class="form-item">
+                  <label for="position">Vị trí</label>
+                  <select name="position">
+                    <option value="" disabled selected>Chọn vị trí</option>
+                    <option>Giám đốc</option>
+                    <option>Quản lý</option>
+                    <option>Nhân viên</option>
+                  </select>
+                </div>
+                <div class="form-item">
+                  <label for="department">Phòng ban</label>
+                  <select name="department">
+                    <option value="" disabled selected>Chọn phòng ban</option>
+                    <option>Phòng Đào tạo</option>
+                    <option>Phòng Nhân sự</option>
+                    <option>Phòng Công nghệ</option>
+                    <option>Phòng Marketing</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-item">
+                  <label for="tax-code">Mã số thuế</label>
+                  <input type="text" name="tax-code" placeholder="Nhập mã số thuế" maxlength="13"
+                    onkeypress="return isNumber(event);">
+                </div>
+                <div class="form-item">
+                  <label for="basic-salary">Mức lương cơ bản</label>
+                  <div class="money-input-container">
+                    <input id="salary" type="text" name="basic-salary" class="text-align-right"
+                      placeholder="Nhập mức lương cơ bản" onkeypress="return isNumber(event);"
+                      oninput="formatMoney(event)">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-item">
+                  <label for="date-join">Ngày gia nhập công ty</label>
+                  <input type="date" name="date-join">
+                </div>
+                <div class="form-item">
+                  <label for="status">Tình trạng công việc</label>
+                  <select name="status">
+                    <option value="" disabled selected>Chọn trạng thái công việc</option>
+                    <option>Đang làm việc</option>
+                    <option>Đã nghỉ việc</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <button type="button" class="m-btn-default m-btn-cancel">Hủy</button>
+          <button class="m-btn m-btn-default">
+            <i class="far fa-save"></i>
+            <div class="btn-text">Lưu</div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="../../js/common/form.js"></script>
+</body>
+
+</html>

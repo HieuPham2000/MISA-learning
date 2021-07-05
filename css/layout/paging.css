@@ -1,0 +1,17 @@
+.paging-bar {
+  /* position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 56px;
+}
+
+.paging-number {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

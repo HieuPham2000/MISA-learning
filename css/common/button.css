@@ -7,7 +7,7 @@ button {
 .m-btn {
   display: flex;
   align-items: center;
-  /* gap: 8px; */
+  gap: 8px;
   background-color: #019160;
   border-radius: 4px;
   height: 40px;
@@ -15,9 +15,6 @@ button {
   color: #ffffff;
   font-family: 'GoogleSans-Regular';
   padding: 0 16px;
-  border: none;
-  outline: none;
-  cursor: pointer;
 }
 
   .m-btn:hover {
@@ -27,35 +24,25 @@ button {
   .m-btn-icon {
     width: 16px;
     height: 16px;
-    /* background-size: contain; */
     background-position: center;
   }
 
-  .m-btn .btn-text {
-    margin-left: 8px;
-  }
-
 .m-second-button {
-  border: 1px solid #bbbbbb;
-  border-radius: 4px;
-  
   box-sizing: border-box;
   height: 40px;
-  /* width: 40px; */
-  background-color: #ffffff;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
   padding-left: 24px;
   padding-right: 24px;
+  background-color: #ffffff;
   text-align: center;
 }
   .m-second-button:hover {
-    background-color: #E9EBEE;
+    background-color: #e9ebee;
   }
-  /* .m-second-button:active {
-    background-color: #01B075;
-  } */
 
 .m-btn-refresh {
-  background-image: url('/content/icon/refresh.png');
+  background-image: url('../../content/icon/refresh.png');
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -69,22 +56,23 @@ button {
   cursor: pointer;
 }
   .m-btn-first-page {
-    background-image: url('/content/icon/btn-firstpage.svg');
+    background-image: url('../../content/icon/btn-firstpage.svg');
   }
 
   .m-btn-prev-page {
-    background-image: url('/content/icon/btn-prev-page.svg');
+    background-image: url('../../content/icon/btn-prev-page.svg');
   }
 
   .m-btn-last-page {
-    background-image: url('/content/icon/btn-lastpage.svg');
+    background-image: url('../../content/icon/btn-lastpage.svg');
   }
 
   .m-btn-next-page {
-    background-image: url('/content/icon/btn-next-page.svg');
+    background-image: url('../../content/icon/btn-next-page.svg');
   }
 
 .m-btn-num-page {
+  box-sizing: border-box;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -93,16 +81,52 @@ button {
   border: 1px solid #bbbbbb;
   background-color: #E9EBEE;
   cursor: pointer;
+  user-select: none;
 }
 
   .m-btn-num-page:hover {
     background-color: #ffffff;
   }
 
+  .m-btn-num-page.active {
+    color: #ffffff;
+    border: none;
+    background-color: #019160;
+  }
 
+.m-btn-default {
+  box-sizing: border-box;
+  /* display: inline-block; */
+  justify-content: center;
+  padding: auto 24px;
+  height: 40px;
+  border-radius: 4px;
+  min-width: 100px;
 
-.m-btn-active {
-  color: #ffffff;
-  border: none;
+  
+  font-size: 13px;
+  
+  font-family: 'GoogleSans-Regular';
+}
+
+.m-btn-cancel {
+  background-color: #e9ebee;
+}
+
+  .m-btn-cancel:hover {
+    background-color: #dadce0;
+  }
+
+.m-btn-do {
   background-color: #019160;
+  color: #ffffff;
+}
+
+  .m-btn-do:hover {
+    background-color: #2FBE8E;
+  }
+
+.m-btn-danger {
+  background-color: #f65454;
+  color: #ffffff;
 }

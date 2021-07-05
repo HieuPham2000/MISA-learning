@@ -1,31 +1,40 @@
-﻿body {
-    font-family: GoogleSans-Regular;
-    font-size: 13px;
-    margin: 0;
-    /* box-sizing: border-box; */
+body {
+  font-family: GoogleSans;
+  font-size: 13px;
+  color: #454545;
+  margin: 0 auto;
+  /* margin: 0; */
 }
 
 @font-face {
-    font-family: 'GoogleSans-Regular';
-    src: url('/content/font/GoogleSans-Regular.otf') format('opentype');
+  font-family: GoogleSans;
+  src: url(../../content/font/GoogleSans-Regular.otf);
 }
 
 @font-face {
-    font-family: 'GoogleSans-Bold';
-    src: url('/content/font/GoogleSans-Bold.otf') format('opentype');
+  font-family: GoogleSans-Regular;
+  src: url(../../content/font/GoogleSans-Regular.otf);
 }
 
 @font-face {
-    font-family: 'GoogleSans-Italic';
-    src: url('/content/font/GoogleSans-Italic.otf') format('opentype');
+  font-family: GoogleSans-Medium;
+  src: url(../../content/font/GoogleSans-Medium.otf);
 }
 
 @font-face {
-    font-family: 'GoogleSans-Light';
-    src: url('/content/font/GoogleSans-Light.otf') format('opentype');
+  font-family: GoogleSans-Italic;
+  src: url(../../content/font/GoogleSans-Italic.otf);
 }
 
 @font-face {
-    font-family: 'GoogleSans-Medium';
-    src: url('/content/font/GoogleSans-Medium.otf') format('opentype');
+  font-family: GoogleSans-Bold;
+  src: url(../../content/font/GoogleSans-Bold.otf);
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.text-align-center {
+  text-align: center;
 }

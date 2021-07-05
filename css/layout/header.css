@@ -1,0 +1,99 @@
+.header {
+  display: flex;
+  background-color: #ffffff;
+  width: 100%;
+  height: 48px;
+  /* border-bottom: 1px solid #dedede; */
+}
+
+.header .header-left {
+  display: flex;
+  align-items: center;
+  width: 225px;
+  height: 100%;
+  border-right: 1px solid #dedede;
+  border-bottom: 1px solid #dedede;
+  /* z-index: 999; */
+}
+
+
+  .header .header-left .sidebar {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    /* border: 1px solid orange; */
+    margin: 12px 10px 12px 16px;
+    background-image: url(../../content/img/toggle.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+
+  .header .header-left .logo {
+    /* border: 1px solid orange; */
+    height: 28px;
+    width: 100%;
+    background-image: url(../../content/img/cukcuk-logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+.header .header-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% - 226px);
+  height: 100%;
+  border-bottom: 1px solid #dedede;
+}
+.header .header-right .restaurant-info {
+  margin-left: 16px;
+  height: 24px;
+  font-family: 'GoogleSans-Medium';
+}
+
+  .restaurant-info .restaurant-select{
+    border: none;
+    outline: none;
+    padding: 0 10px 0 0;
+    height: 24px;
+    font-family: inherit;
+  }
+  .restaurant-info .restaurant-select option{
+    font-family: 'GoogleSans-Regular';
+  }
+
+
+.header .header-right .account-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-right: 16px;
+}
+
+  .account-info .account-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-image: url('../../content/icon/avatar-default.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .account-info .account-name {
+    font-family: 'GoogleSans-Medium';
+  }
+
+
+  .account-info .account-icon-option {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    background-image: url('../../content/icon/option.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+

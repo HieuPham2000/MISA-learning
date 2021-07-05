@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>MISACukCuk - Phần mềm quản lý nhà hàng</title>
+  <link href="../../css/common/main.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/common/button.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/common/icon.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/common/input.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/layout/header.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/layout/menu.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/layout/page.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/layout/toolbar.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/layout/grid.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/layout/paging.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/page/employee.css" rel="stylesheet" type="text/css" />
+
+  <script src="../../lib/jquery-3.6.0.js"></script>
+  <script src="../../js/base/main.js"></script>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="header-left">
+      <div class="sidebar"></div>
+      <div class="logo"></div>
+    </div>
+    <div class="header-right">
+      <div class="restaurant-info">
+        <select class="restaurant-select">
+          <option>Nhà hàng Biển Đông</option>
+          <option>Nhà hàng Biển Tây</option>
+          <option>Nhà hàng Biển Nam</option>
+          <option>Nhà hàng Biển Bắc</option>
+        </select>
+      </div>
+      <div class="account-info">
+        <div class="account-image"></div>
+        <div class="account-name">Phạm Trung Hiếu</div>
+        <div class="account-icon-option"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu">
+    <div class="menu-item">
+      <div class="menu-item-icon menu-icon-dashboard"></div>
+      <div class="menu-item-text">Tổng quan</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-icon menu-icon-report"></div>
+      <div class="menu-item-text">Báo cáo</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-icon menu-icon-purchase"></div>
+      <div class="menu-item-text">Mua hàng</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-icon menu-icon-customer"></div>
+      <div class="menu-item-text">Danh sách khách hàng</div>
+    </div>
+    <div class="menu-item active">
+      <div class="menu-item-icon menu-icon-employee"></div>
+      <div class="menu-item-text">Danh sách nhân viên</div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-item-icon menu-icon-setting"></div>
+      <div class="menu-item-text">Cài đặt</div>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="page-header">
+      <div class="title">Danh sách nhân viên</div>
+      <div class="feature">
+        <button class="m-btn">
+          <div class="m-btn-icon icon-add"></div>
+          <div class="btn-text">Thêm nhân viên</div>
+        </button>
+      </div>
+    </div>
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <input class="icon-search input-search" type="search" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
+        <select>
+          <option selected>Tất cả phòng ban</option>
+          <option>Phòng Đào tạo</option>
+          <option>Phòng Nhân sự</option>
+          <option>Phòng Công nghệ</option>
+          <option>Phòng Marketing</option>
+        </select>
+        <select>
+          <option selected>Tất cả vị trí</option>
+          <option>Giám đốc</option>
+          <option>Quản lý</option>
+          <option>Nhân viên</option>
+        </select>
+      </div>
+      <div class="toolbar-right">
+        <button class="m-second-button m-btn-refresh"></button>
+      </div>
+    </div>
+    <div class="grid grid-content">
+      <table cellspacing="0">
+        <colgroup>
+          <col style="width: 150px;" />
+          <col style="width: 200px;" />
+          <col style="width: 100px;" />
+          <col style="width: 150px;" />
+          <col style="width: 300px;" />
+          <col style="width: 100px;" />
+          <col style="width: 150px;" />
+          <col style="width: 150px;" />
+          <col style="width: 150px;" />
+          <col style="width: 150px;" />
+          <col style="width: 200px;" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Mã nhân viên</th>
+            <th>Họ và tên</th>
+            <th>Giới tính</th>
+            <th>Ngày sinh</th>
+            <th>Địa chỉ</th>
+            <th>Điện thoại</th>
+            <th>Email</th>
+            <th>Chức vụ</th>
+            <th>Phòng ban</th>
+            <th>Mức lương cơ bản</th>
+            <th>Tình trạng công việc</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+          <tr>
+            <td>NV-458074</td>
+            <td>Nguyễn Văn Nhân</td>
+            <td>Nam</td>
+            <td>24/07/1998</td>
+            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
+            <td>0932358346</td>
+            <td>nhan123@gmail.com</td>
+            <td>Giám đốc</td>
+            <td>Phòng Công nghệ</td>
+            <td>28.438.010</td>
+            <td>Đã nghỉ việc</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="paging-bar">
+      <div class="paging-total">Hiển thị 1-20/1000 nhân viên</div>
+      <div class="paging-number">
+        <div class="m-btn-ctrl-page m-btn-first-page"></div>
+        <div class="m-btn-ctrl-page m-btn-prev-page"></div>
+        <div class="m-btn-num-page active">1</div>
+        <div class="m-btn-num-page">2</div>
+        <div class="m-btn-num-page">3</div>
+        <div class="m-btn-num-page">4</div>
+        <div class="m-btn-ctrl-page m-btn-next-page"></div>
+        <div class="m-btn-ctrl-page m-btn-last-page"></div>
+      </div>
+      <div class="paging-limit">20 nhân viên/trang</div>
+    </div>
+  </div>
+</body>
+
+</html>

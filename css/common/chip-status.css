@@ -1,0 +1,33 @@
+.chip-status {
+  width: 100px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 11px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.chip-status-rejected {
+  color: #F65454;
+  background-color: #FFEBEB;
+}
+
+.chip-status-approved {
+  color: #01b075;
+  background-color: #ebf9f4;
+}
+
+.chip-status-sent {
+  color: #0075ff;
+  background-color: #ebf4ff;
+}
+
+.chip-status-lack {
+  color: #ff6900;
+  background-color: #fff3eb;
+}
+
+.chip-status-unsent {
+  color: #454545;
+  background-color: #e5e5e5;
+}
