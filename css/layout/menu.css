@@ -2,7 +2,10 @@
   width: 225px;
   height: calc(100vh - 48px);
   border-right: 1px solid #dedede;
-  position: relative;
+  /* position: relative; */
+  display: inline-block;
+  /* margin-top: 0px; */
+  /* z-index: 999; */
 }
 
 .menu .menu-item {
