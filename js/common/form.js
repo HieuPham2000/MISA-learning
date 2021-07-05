@@ -13,6 +13,7 @@ function formatMoney(event) {
   }
   value = value.replaceAll(".", "");
   // value = parseInt(value).toLocaleString().replaceAll(",", ".");
-  value = BigInt(value).toLocaleString().replaceAll(",", ".");
+  // value = BigInt(value).toLocaleString().replaceAll(",", ".");
+  value = BigInt(value).toLocaleString("it-IT");
   el.value = value;
 }
