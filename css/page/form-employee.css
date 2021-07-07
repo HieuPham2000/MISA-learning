@@ -120,7 +120,8 @@
     bottom: -6px;
     left: 0;
     width: 80px;
-    border: 2px solid #019160;
+    height: 4px;
+    background-color: #019160;
   }
 
   .content-part .row {
@@ -134,7 +135,7 @@
   width: 50%;
 }
 
-  .row .form-item * {
+  .row .form-item input {
     font-family: inherit;
   }
 
@@ -150,16 +151,11 @@
     color: #ff0000;
   }
 
-  .row .form-item input, .row .form-item select{
+  .row .form-item input{
     display: block;
     box-sizing: border-box;
     width: 100%;
   }
-
-  option[disabled] {
-    background-color: #bbbbbb;
-  }
-
 
 .money-input-container {
   position: relative;
@@ -170,11 +166,11 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 16px;
+    right: 26px;
   }
 
   .money-input-container input{
     text-align: right;
-    padding-right: 56px;
+    padding-right: 62px;
   }
 
