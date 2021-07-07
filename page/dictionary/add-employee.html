@@ -20,12 +20,18 @@
     </div>
     <div class="header-right">
       <div class="restaurant-info">
-        <select class="restaurant-select">
-          <option>Nhà hàng Biển Đông</option>
-          <option>Nhà hàng Biển Tây</option>
-          <option>Nhà hàng Biển Nam</option>
-          <option>Nhà hàng Biển Bắc</option>
-        </select>
+        <div class="combobox-container selectbox">
+          <div class="combobox-input">
+            <input type="text" placeholder="Chọn/Nhập tình trạng công việc" name="status" value="Nhà hàng Biển Đông" readonly>
+            <button type="button"><i class="fas fa-chevron-down"></i></button>
+          </div>
+          <ul class="combobox-dropdown">
+            <li class="selected"><i class="fas fa-check"></i>Nhà hàng Biển Đông</li>
+            <li><i class="fas fa-check"></i>Nhà hàng Biển Tây</li>
+            <li><i class="fas fa-check"></i>Nhà hàng Biển Nam</li>
+            <li><i class="fas fa-check"></i>Nhà hàng Biển Bắc</li>
+          </ul>
+        </div>
       </div>
       <div class="account-info">
         <div class="account-image"></div>
@@ -127,7 +133,7 @@
           <col style="width: 100px;" />
           <col style="width: 250px;" />
           <col style="width: 150px;" />
-          <col style="width: 100px;" />
+          <col style="width: 150px;" />
           <col style="width: 150px;" />
           <col style="width: 200px;" />
         </colgroup>
@@ -174,7 +180,7 @@
   <!-- Modal add employee -->
   <div class="modal-container">
     <div class="form-modal">
-      <form method="POST" action="#">
+      <form id="form" method="POST" action="#">
         <div class="form-icon-close" onclick="closeModal()">
           <img src="../../content/icon/x.svg">
         </div>

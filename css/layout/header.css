@@ -49,20 +49,8 @@
 .header .header-right .restaurant-info {
   margin-left: 16px;
   height: 24px;
-  font-family: 'GoogleSans-Medium';
+  background-color: rebeccapurple;
 }
-
-  .restaurant-info .restaurant-select{
-    border: none;
-    outline: none;
-    padding: 0 10px 0 0;
-    height: 24px;
-    font-family: inherit;
-  }
-  .restaurant-info .restaurant-select option{
-    font-family: 'GoogleSans-Regular';
-  }
-
 
 .header .header-right .account-info {
   display: flex;
