@@ -8,25 +8,26 @@ $(document).ready(function() {
  * Author: pthieu (06/07/2021)
  */
 function addButtonClearInput() {
-  var selectorTextInput = "input[type=text], input[type=email]";
-  $(selectorTextInput).wrap('<div class="input-wrapper"></div>')
-  $(selectorTextInput).after(`
+  var inputs = $("input[type=text]:not(.header input), input[type=email");
+  inputs.wrap('<div class="input-wrapper"></div>')
+  inputs.after(`
       <div class="btn-clear-text">
         <img src="../../content/icon/x.svg" >
       </div> `);
 
   $(".btn-clear-text").click(function() {
     $(this).siblings("input").val("");
-    $(this).hide();
+    $(this).siblings("input").trigger("input");
+    // $(this).hide();
   })
   
-  $(selectorTextInput).each(function() {
+  inputs.each(function() {
     if($(this).val()) {
       $(this).siblings(".btn-clear-text").show();
     }
   })
   
-  $(selectorTextInput).on("input", function() {
+  inputs.on("input", function() {
     if($(this).val()) {
       $(this).siblings(".btn-clear-text").show();
     } else {
@@ -36,26 +37,30 @@ function addButtonClearInput() {
 }
 
 function makeCombobox() {
-  // $(".combobox-dropdown").hide();
-  // $(document).click(function(event) {
-  //   var el = event.target;
-  //   if( !el.matches(".combobox-container, .combobox-container *")) {
-  //     closeAllDropdown();
-  //   }
-
-  // })
+  
+  // Ẩn tất cả dropdown khi click ra ngoài
+  $(document).click(function(event) {
+    var el = event.target;
+    // console.log(el)
+    if( $(".combobox-container").has(el).length == 0 && !$(".combobox-container").is(el)) {
+      // console.log($(".combobox-container").has(el))
+      closeAllDropdown();
+    }
+  })
 
   $(".combobox-container button").click(function() {
     toggleDropdownByButton.call(this);
   })
 
-  $(".combobox-container input").focus(function() {
-    openDropdownByInput.call(this);
+  $(".selectbox input").click(function() {
+    toggleDropdownByButton.call(this);
   })
 
-  $(".combobox-container input").on('input', function() {
+  $(".combobox-container input:not([readonly])").on('focus input', function() {
+    var container = $(this).parents(".combobox-container");
+    openDropdown(container);
     var value = $(this).val().toLowerCase();
-    $(this).parents(".combobox-container").find("li").each(function() {
+    container.find("li").each(function() {
       if($(this).text().toLowerCase().indexOf(value) > -1) {
         $(this).show();
       } else {
@@ -66,41 +71,53 @@ function makeCombobox() {
 
   selectItemInDropdown();
 
-  
 }
 
 function closeAllDropdown() {
-  $(".combobox-dropdown").hide();
-  $(".combobox-input button").removeClass("selected");
-  $(".combobox-input button i").removeClass("rotate-180deg");
+  $(".combobox-container").removeClass("open-dropdown");
+  $(".combobox-input").css("border", "1px solid #bbbbbb");
+  $(".selectbox .combobox-input").css("border", "none");
 }
 
 function toggleDropdownByButton() {
-  $(this).parent().siblings(".combobox-dropdown").toggle();
-  $(this).find("i").toggleClass("rotate-180deg");
-  $(this).toggleClass("selected");
+  // $(this).parents(".combobox-container").toggleClass("open-dropdown");
+  var container = $(this).parents(".combobox-container");
+  if(container.is(".open-dropdown")) {
+    container.removeClass("open-dropdown");
+  } else {
+    openDropdown(container);
+  }
+}
+
+function openDropdown(container) {
+  closeAllDropdown();
+  container.addClass("open-dropdown");
+  if(!container.find("input").is("[readonly]")) {
+    container.children(".combobox-input").css("border", "1px solid #019160");
+  }
+
 }
 
 function openDropdownByInput() {
-  $(this).parents(".combobox-input").siblings(".combobox-dropdown").toggle();
-  $(this).parents(".combobox-input").find("i").toggleClass("rotate-180deg");
-  $(this).parents(".combobox-input").find("button").toggleClass("selected");
+  $(this).parents(".combobox-container").addClass("open-dropdown");
 }
 
+/**
+ * 
+ */
 function selectItemInDropdown() {
   $(".combobox-dropdown li").click(function() {
     var container = $(this).parents(".combobox-container");
+    $(this).siblings(".selected").removeClass("selected");
+    $(this).addClass("selected");
 
-
-    container.find("button").removeClass("selected");
-    container.find("i").removeClass("rotate-180deg");
+    container.removeClass("open-dropdown");
 
     var input = container.find("input");
     input.val( $(this).text() );
     input.siblings(".btn-clear-text").show();
- 
-    $(this).parent().hide();
-    $(this).siblings(".selected").removeClass("selected");
-    $(this).addClass("selected");
+
   })
 }
+
+
