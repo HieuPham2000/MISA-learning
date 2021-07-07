@@ -1,9 +1,10 @@
-// $(document).ready( function() {
-//   $(".modal-container").hide();
-// })
-
+/**
+ * Hiện modal
+ * Author: pthieu (03/07/2021)
+ */
 function openModal() {
   $(".modal-container").show();
+  $(".modal-container").find(".autofocus").focus();
 }
 
 function closeModal() {

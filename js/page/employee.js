@@ -4,64 +4,50 @@ $(document).ready(function () {
 })
 
 /** ------------------------------
- * Khởi tạo sự kiện cho các sự kiện
- * Author: PTHieu (05/07/2021)
+ * Khởi tạo sự kiện
+ * Author: pthieu (05/07/2021)
  */
 function initEvents() {
-  // nguyên tắc: 1. thành phần được render trước khi gọi lệnh
-  // Cách 1: chuyển xuống dưới (chỗ ajax)
-  // Cách 2: 
+  $("tbody").on("dblclick", "tr", function() {
+    // Bỏ tất cả dấu check
+    $(this).parent().find("i").removeClass("fas fa-check-square").addClass("far fa-square");
+    // Xóa background
+    $(this).siblings().removeClass("selected");
+    // Thêm check
+    $(this).find("i").removeClass("far fa-square").addClass("fas fa-check-square");
+    // Thêm background
+    $(this).addClass("selected");
 
-  // không hoạt động đúng do thực hiện trước khi loadData tạo ra tr xong
-  // $("tr").click(function() {
-  //   alert("Á");
+    // Hiển thị dialog thông tin chi tiết của nhân viên
+    $(".modal-container").show();  
+  })
+
+  // $("tbody").on("click", "i", function() {
+  //   $(this).toggleClass("far fa-square");    
+  //   $(this).toggleClass("fas fa-check-square");  
+  //   // highlight row -> thay đổi background của tr có checkbox được check
+  //   $(this).parents("tr").toggleClass("selected");
   // })
 
-
-  // đảm bảo tbody đã có trước
-  // có thể dùng document, nhưng khoanh vùng như này rộng quá
-  // khoanh vùng càng hẹp càng tốt. Cần khoanh vùng chuẩn.
   $("tbody").on("click", "tr", function() {
-    // alert("Á");
-    // Hiển thị dialog thông tin chi tiết của nhân viên
-    // $(".modal-container").show();
-
+    $(this).find("i").toggleClass("far fa-square");    
+    $(this).find("i").toggleClass("fas fa-check-square");  
     // highlight row -> thay đổi background của tr click
-    // Xóa tất cả background của các tr khác
-    // hoặc có thể xóa background của tất cả tr trước
-    $("tr").siblings().removeAttr("style");
-    $(this).css("background", "greenyellow");    
+    $(this).toggleClass("selected");
   })
 
-  $("tbody").on("dblclick", "tr", function() {
-    // alert("Á");
-    // Hiển thị dialog thông tin chi tiết của nhân viên
-    $(".modal-container").show();    
-  })
-
-  $(".m-btn").click(function() {
-    alert("Ối");
-  })
 }
 
 /** ------------------------------
  * Load dữ liệu danh sách nhân viên
- * Author: PTHieu (05/07/2021)
+ * Author: pthieu (05/07/2021)
  * 
  */
 function loadData() {
 
   // 1. Lấy dữ liệu từ API về
-  // $.ajax({
-  //   url: "http://cukcuk.manhnv.net/v1/Employees",
-  //   method: "GET",
-  // }).done(function(res) {
-  //   var data = res;
-  //   debugger
-  // }).fail(function(res) {
-  // })
   $.ajax({
-    method: "GET", // GET: lấy dữ liệu; POST: thêm mới; PUT: Sửa; DELETE: Xóa (thực tế có thể thay thế nhau, nhưng do chuẩn Restful) 
+    method: "GET", // GET: lấy dữ liệu; POST: thêm mới; PUT: Sửa; DELETE: Xóa
     url: "http://cukcuk.manhnv.net/v1/Employees",
     // data: "" // Tham số cần thiết cho API(nếu có)
     // contentType: "application/json",
@@ -76,35 +62,37 @@ function loadData() {
 
     // Duyệt từng đối tượng xử lý thông tin
     $.each(data, function (index, item) {
-      // Xử lý dữ liệu
-      
-      let employeeCode = item.EmployeeCode;
-      let fullName = item.FullName;
-      let genderName = item.GenderName;
-      genderName = genderName ? genderName : "";
 
-      // 1. Định dạng ngày / tháng / năm
+      // Xử lý dữ liệu
+      let employeeCode = formatData(item.EmployeeCode);
+
+      let fullName = formatData(item.FullName);
+
+      let genderName = formatData(item.GenderName);
+
+      // Định dạng ngày / tháng / năm
       let dateOfBirth = formatDateDDMMYYYY(item.DateOfBirth);
       
-      let phoneNumber = item.PhoneNumber;
+      let phoneNumber = formatData(item.PhoneNumber);
 
-      // 2. Định dạng tiền lương
-      let salary = item.Salary;
-      salary = salary ? salary.toLocaleString("it-IT") : "";
+      // Định dạng tiền lương
+      let salary = formatMoney(item.Salary);
 
-      let positionName = item.PositionName;
-      positionName = positionName ? positionName : "";
+      let positionName = formatData(item.PositionName);
 
-      let email = item.Email;
-      let address = item.IdentityPlace;
-      let departmentName = item.DepartmentName;
-      departmentName = departmentName ? departmentName : "";
+      let email = formatData(item.Email);
 
-      let workStatus = item.WorkStatus;
-      workStatus = workStatus ? workStatus : "";
-      
+      let address = formatData(item.IdentityPlace);
+
+      let departmentName = formatData(item.DepartmentName);
+
+      let workStatus = formatWorkStatus(item.WorkStatus);
+
+      // 3. Hiển thị dữ liệu (binding dữ liệu lên table)
       let tr = `
           <tr>
+            <td><i class="far fa-square"></i></td>
+            <td>${index + 1}</td>
             <td>${employeeCode}</td>
             <td>${fullName}</td>
             <td>${genderName}</td>
@@ -114,23 +102,34 @@ function loadData() {
             <td>${email}</td>
             <td>${positionName}</td>
             <td>${departmentName}</td>
-            <td class="text-align-right">${salary}</td>
+            <td class="text-align-right padding-right-10px">${salary}</td>
             <td>${workStatus}</td>
           </tr>
       `;
       $("tbody").append(tr);
     })
-
-
   }).fail(function (response) {
-    alert("Load thất bại!");
+    alert("Load dữ liệu thất bại!");
   })
-
-
-
-  // 3. Hiển thị dữ liệu (binding dữ liệu lên table)
 }
 
+/**
+ * Định dạng dữ liệu lấy từ loadData, nếu null thì trả về ""
+ * @param {*} data 
+ * @returns string
+ * Author: pthieu (06/07/2021)
+ */
+ function formatData(data) {
+  if(data) {
+    return data;
+  }
+  return "";
+}
+
+/** --------------------------------------------------
+ * Format dữ liệu ngày tháng theo định dạng dd/mm/yyyy
+ * Author: pthieu (05/07/2021)
+ */
 function formatDateDDMMYYYY(date) {
   // if(date == null || date == undefined) {
   //   alert("Lỗi ngày tháng");
@@ -146,6 +145,40 @@ function formatDateDDMMYYYY(date) {
   m = m > 9 ? m : `0${m}`;
   let y = dateOrigin.getFullYear();
   let dateString = `${d}/${m}/${y}`;
-  // return(dateOrigin.toLocaleDateString());
   return dateString;
+  // return(dateOrigin.toLocaleDateString());
 }
+
+/**
+ * Định dạng tiền lương theo dạng xxx.xxx.xxx
+ * @param {number} salary giá trị tiền lương
+ * @returns string định dang xxx.xxx.xxx
+ * Author: pthieu (06/07/2021)
+ */
+function formatMoney(salary) {
+  return salary ? salary.toLocaleString("it-IT") : "";
+}
+
+/**
+ * Chuyển mã work status sang trạng thái tương ứng
+ * @param {number} code 
+ * @returns string tương ứng mã code
+ * Author: pthieu (06/07/2021)
+ */
+
+ function formatWorkStatus(code) {
+  const code1 = "Đã nghỉ việc";
+  const code2 = "Đang thử việc";
+  const code3 = "Đang làm việc";
+  switch(code) {
+    case 1:
+      return code1;
+    case 2:
+      return code2;
+    case 3:
+      return code3;
+    default:
+      return "";
+  }
+}
+
