@@ -19,15 +19,12 @@ function initEvents() {
     $(this).addClass("selected");
 
     // Hiển thị dialog thông tin chi tiết của nhân viên
-    $(".modal-container").show();  
+    loadDataByEmployeeId($(this).data("id"));
+    setTimeout(() => {
+      $(".modal-container").show();  
+    }, 200);
+    
   })
-
-  // $("tbody").on("click", "i", function() {
-  //   $(this).toggleClass("far fa-square");    
-  //   $(this).toggleClass("fas fa-check-square");  
-  //   // highlight row -> thay đổi background của tr có checkbox được check
-  //   $(this).parents("tr").toggleClass("selected");
-  // })
 
   $("tbody").on("click", "tr", function() {
     $(this).find("i").toggleClass("far fa-square");    
@@ -82,7 +79,7 @@ function loadData() {
 
       let email = formatData(item.Email);
 
-      let address = formatData(item.IdentityPlace);
+      let address = formatData(item.Address);
 
       let departmentName = formatData(item.DepartmentName);
 
@@ -107,6 +104,7 @@ function loadData() {
           </tr>
       `;
       $("tbody").append(tr);
+      $("tbody tr").last().data("id", item.EmployeeId);
     })
   }).fail(function (response) {
     alert("Load dữ liệu thất bại!");
@@ -149,6 +147,24 @@ function formatDateDDMMYYYY(date) {
   // return(dateOrigin.toLocaleDateString());
 }
 
+function formatDateYYYYMMDD(date) {
+  // if(date == null || date == undefined) {
+  //   alert("Lỗi ngày tháng");
+  // }
+  if(!date) {
+    return '';
+  }
+  let dateOrigin = new Date(date);
+
+  let d = dateOrigin.getDate();
+  d = d > 9 ? d : `0${d}`;
+  let m = dateOrigin.getMonth() + 1; // tháng bắt đầu từ 0
+  m = m > 9 ? m : `0${m}`;
+  let y = dateOrigin.getFullYear();
+  let dateString = `${y}-${m}-${d}`;
+  return dateString;
+}
+
 /**
  * Định dạng tiền lương theo dạng xxx.xxx.xxx
  * @param {number} salary giá trị tiền lương
@@ -182,3 +198,69 @@ function formatMoney(salary) {
   }
 }
 
+
+/** ------------------------------
+ * Load dữ liệu danh sách nhân viên
+ * Author: pthieu (05/07/2021)
+ * 
+ */
+ function loadDataByEmployeeId(id) {
+
+  // 1. Lấy dữ liệu từ API về
+  $.ajax({
+    method: "GET",
+    url: `http://cukcuk.manhnv.net/v1/Employees/${id}`,
+  }).done(function (response) {
+    // 2. Xử lý dữ liệu
+    console.log(response);
+    // console.table(response);
+    let item = response;
+    let employeeCode = formatData(item.EmployeeCode);
+    let fullName = formatData(item.FullName);
+    let genderName = formatData(item.GenderName);
+    let dateOfBirth = formatDateYYYYMMDD(item.DateOfBirth);
+    let phoneNumber = formatData(item.PhoneNumber);
+    let email = formatData(item.Email);
+
+    let identityNumber = formatData(item.IdentityNumber);
+    let identityDate = formatDateYYYYMMDD(item.IdentityDate);
+    let identityPlace = formatData(item.IdentityPlace);
+
+    let salary = formatMoney(item.Salary);
+    let positionName = formatData(item.PositionName);
+    let departmentName = formatData(item.DepartmentName);
+    console.log(item.PositionName);
+    console.log(item.DepartmentName);
+    let taxCode = formatData(item.PersonalTaxCode);
+    let workStatus = formatWorkStatus(item.WorkStatus);
+
+    var form = $("#form");
+    form.find('input[name="employee-id"]').val(employeeCode);
+
+    form.find('input[name="name"]').val(fullName);
+    form.find('input[name="birthday"]').val(dateOfBirth);
+    form.find('input[name="gender"]').val(genderName);
+
+    form.find('input[name="people-id"]').val(identityNumber);
+    form.find('input[name="date-issue"]').val(identityDate);
+    form.find('input[name="place-issue"]').val(identityPlace);
+
+    form.find('input[name="phone"]').val(phoneNumber);
+    form.find('input[name="email"]').val(email);
+
+    form.find('input[name="position"]').val(positionName);
+    form.find('input[name="department"]').val(departmentName);
+    form.find('input[name="tax-code"]').val(taxCode);
+    form.find('input[name="basic-salary"]').val(salary);
+    form.find('input[name="status"]').val(workStatus);
+
+    form.find("input").each(function() {
+      if($(this).val()) {
+        $(this).siblings(".btn-clear-text").show();
+      }
+    })
+    
+  }).fail(function (response) {
+    alert("Load dữ liệu thất bại!");
+  })
+}

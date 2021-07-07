@@ -12,7 +12,7 @@
   background-color: #ffffff;
   /* margin: 20px auto; */
   margin: auto;
-  width: 60%;
+  width: 40%;
   border-radius: 4px;
   resize: both;
 }
@@ -76,7 +76,7 @@
 
 .form-content-left {
   /* background-color: azure; */
-  flex: 25%;
+  flex: 20%;
 }
 
 .form-content-left .avatar {
