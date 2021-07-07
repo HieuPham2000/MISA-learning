@@ -51,10 +51,15 @@ button {
 .m-btn-ctrl-page {
   width: 40px;
   height: 40px;
+  border-radius: 4px;
   background-position: center;
   background-repeat: no-repeat;
   cursor: pointer;
 }
+
+  .m-btn-ctrl-page:hover {
+    background-color: #ffffff;
+  }
   .m-btn-first-page {
     background-image: url('../../content/icon/btn-firstpage.svg');
   }
@@ -85,6 +90,7 @@ button {
 }
 
   .m-btn-num-page:hover {
+    border-color: #ffffff;
     background-color: #ffffff;
   }
 
