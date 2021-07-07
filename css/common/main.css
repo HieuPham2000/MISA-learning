@@ -1,3 +1,9 @@
+@import url(button.css);
+@import url(icon.css);
+@import url(input.css);
+@import url(modal.css);
+@import url(combobox.css);
+
 body {
   font-family: GoogleSans;
   font-size: 13px;
@@ -37,4 +43,12 @@ body {
 
 .text-align-center {
   text-align: center;
+}
+
+.padding-right-10px {
+  padding-right: 10px;
+}
+
+.padding-left-10px {
+  padding-right: 10px;
 }
