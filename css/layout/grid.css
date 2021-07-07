@@ -4,6 +4,7 @@
   height: 100%;
   overflow: auto;
   margin-top: 16px;
+  background-color: #ffffff;
 }
 
 table {
@@ -23,12 +24,16 @@ table {
     border-bottom: 1px solid #bbbbbb;
   }
 
-  tbody tr:nth-child(odd) {
+  /* tbody tr:nth-child(odd) {
     background-color: #f4f4f4;
-  }
+  } */
 
   tbody tr:hover {
     background-color: #e9ebee;
+  }
+
+  tbody tr.selected {
+    background-color: #EBF9F4;
   }
 
 thead th {
@@ -58,44 +63,21 @@ thead th {
 
 /* tr td:nth-child(1), tr th:nth-child(1) {
   width: 150px;
+}*/
+tr td:nth-child(1), tr th:nth-child(1) {
+  padding-left: 16px;
+  text-align: right;
 }
 
-tr td:nth-child(2), tr th:nth-child(2) {
-  width: 200px;
+tr td:nth-child(1) > i {
+  line-height: 52px;
+  font-size: 24px;
+}
+td i.fa-square {
+  color: #bbbbbb;
 }
 
-tr td:nth-child(3), tr th:nth-child(3) {
-  width: 100px;
+td i.fa-check-square {
+  color: #019160;
 }
 
-tr td:nth-child(4), tr th:nth-child(4) {
-  width: 150px;
-}
-
-tr td:nth-child(5), tr th:nth-child(5) {
-  width: 300px;
-}
-
-tr td:nth-child(6), tr th:nth-child(6) {
-  width: 100px;
-}
-
-tr td:nth-child(7), tr th:nth-child(7) {
-  width: 150px;
-}
-
-tr td:nth-child(8), tr th:nth-child(8) {
-  width: 150px;
-}
-
-tr td:nth-child(9), tr th:nth-child(9) {
-  width: 150px;
-}
-
-tr td:nth-child(10), tr th:nth-child(10) {
-  width: 150px;
-}
-
-tr td:nth-child(11), tr th:nth-child(11) {
-  width: 150px;
-} */
