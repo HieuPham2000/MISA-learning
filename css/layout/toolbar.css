@@ -15,18 +15,5 @@
 .toolbar-left {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
-  .input-search {
-    width: 300px;
-    padding-left: 40px; 
-  }
-
-  .toolbar-left select {
-    padding: 10px 0px 10px 16px;
-    margin-left: 10px;
-    width: 180px;
-  }
-
-  .toolbar-left select:focus {
-    border-color: #019160;
-  }

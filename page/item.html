@@ -4,25 +4,192 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../content/font/fontawesome-5.15.1/css/all.min.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <title>Document</title>
   <style>
+    ul.select-dropdown {
+      display: inline-block;
+      background-color: #ffffff;
+      list-style: none;
+      margin: 0;
+      padding: 0 0 4px 0;
+      border-radius: 4px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+
+      cursor: context-menu;
+      
+      user-select: none;
+    }
+
+    ul.select-dropdown.hide {
+      display: none;
+    }
+
+    li {
+      width: 180px;
+      height: 40px;
+      line-height: 40px;
+    }
+
+    li i {
+      visibility: hidden;
+      /* display: none; */
+      font-size: 16px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    li:hover {
+      background-color: #E9EBEE;
+    }
+
+    li.selected {
+      color: #ffffff;
+      background-color: #019160;
+    }
+
+    li.selected i {
+      visibility: visible;
+    }
+
+    .select-input {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: context-menu;
+      user-select: none;
+      width: 180px;
+
+      box-sizing: border-box;
+      border: 1px solid #BBBBBB;
+      border-radius: 4px;
+      height: 40px;
+      padding-left: 16px;
+      padding-right: 12px;
+    }
+
+    .select-input:focus {
+      border: 1px solid #019160;
+    }
+
+    .rotate {
+      transform: rotate(180deg);
+    }
+
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%);
+    }
+
+    .select-dropdown {
+      position: absolute;
+      top: 44px;
+      left: 0;
+    }
 
   </style>
 </head>
 <body>
-  <div>
-    <div class="select-input">
-      <div class="select-text"></div>
-      
+  <div class="container">
+    <div class="select-input"  onclick="toggle(event)">
+      <span class="select-text">Chọn phòng ban</span>
+      <i class="fas fa-chevron-down"></i>
     </div>
-    <ul>
-      <li>Tất cả phòng ban</li>
-      <li>Phòng Đào tạo</li>
-      <li>Phòng Nhân sự</li>
-      <li>Phòng Công nghệ</li>
-      <li>Phòng Marketing</li>
+    <ul class="select-dropdown hide">
+      <li><i class="fas fa-check"></i>Tất cả phòng ban</li>
+      <li><i class="fas fa-check"></i>Phòng Đào tạo</li>
+      <li class="selected"><i class="fas fa-check"></i>Phòng Nhân sự</li>
+      <li><i class="fas fa-check"></i>Phòng Công nghệ</li>
+      <li><i class="fas fa-check"></i>Phòng Marketing</li>
     </ul>
   </div>
   
+  <div>
+    <div class="select-input"  onclick="toggle(event)">
+      <span class="select-text">Chọn phòng ban</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <ul class="select-dropdown hide">
+      <li><i class="fas fa-check"></i>Tất cả phòng ban</li>
+      <li><i class="fas fa-check"></i>Phòng Đào tạo</li>
+      <li class="selected"><i class="fas fa-check"></i>Phòng Nhân sự</li>
+      <li><i class="fas fa-check"></i>Phòng Công nghệ</li>
+      <li><i class="fas fa-check"></i>Phòng Marketing</li>
+    </ul>
+  </div>
+
+  <script>
+    function toggle(event) {
+      var e = event.target;
+      while(! e.classList.contains("select-input")) {
+        e = e.parentElement;
+      }
+
+      var i = e.children[1];
+      // if(i.classList.contains("fa-chevron-down")) {
+      //   i.classList.remove("fa-chevron-down");
+      //   i.classList.add("fa-chevron-up");
+      // } else {
+      //   i.classList.remove("fa-chevron-up");
+      //   i.classList.add("fa-chevron-down");
+      // }
+      i.classList.toggle("rotate");
+
+      var el = e.nextElementSibling;
+      
+      
+      el.classList.toggle("hide");
+    }
+
+    // var ul = document.getElementsByClassName("select-dropdown")[0];
+    var list_li = document.getElementsByTagName("li");
+    function select(event) {
+      var el = event.target;
+      let list = el.parentElement.getElementsByTagName("li");
+      for(var i = 0; i < list.length; ++i) {
+        list[i].classList.remove("selected");
+      }
+      el.classList.add("selected");
+
+      var parent = el.parentElement;
+      var prev = parent.previousElementSibling;
+      prev.children[0].innerText = el.innerText;
+      // prev.children[1].classList.remove("fa-chevron-up");
+      // prev.children[1].classList.add("fa-chevron-down");
+      prev.children[1].classList.toggle("rotate");
+
+      parent.classList.add("hide");
+    }
+    
+    for(var i = 0; i < list_li.length; ++i) {
+      list_li[i].addEventListener("click", select);
+    }
+
+    function collapse(event) {
+      var e = event.target;
+      // console.log(e)
+      if(! e.matches(".select-input, .select-input *") && ! e.matches(".select-dropdown, .select-dropdown *")) {
+        var list =  document.getElementsByClassName("select-dropdown");
+        for(var i = 0; i < list.length; ++i) {
+          list[i].classList.add("hide");
+          list[i].previousElementSibling.children[1].classList.remove("rotate");
+        }
+      }
+    }
+
+    function collapseAllDropdown() {
+      var list =  document.getElementsByClassName("select-dropdown");
+      for(var i = 0; i < list.length; ++i) {
+        list[i].classList.add("hide");
+        list[i].previousElementSibling.children[1].classList.remove("rotate");
+      }
+    }
+
+    window.addEventListener('click', collapse);
+  </script>
 </body>
 </html>
