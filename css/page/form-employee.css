@@ -134,6 +134,7 @@
 
 .content-part .row .form-item {
   width: 50%;
+  position: relative;
 }
 
   .row .form-item input {

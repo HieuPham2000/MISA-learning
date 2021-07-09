@@ -15,8 +15,10 @@ function addButtonClearInput() {
       </div> `);
 
   $(".btn-clear-text").click(function() {
-    $(this).siblings("input").val("");
-    $(this).siblings("input").trigger("input");
+    var input = $(this).siblings("input");
+    $(input).val("");
+    $(input).focus();
+    $(input).trigger("input");
     // $(this).hide();
   })
   

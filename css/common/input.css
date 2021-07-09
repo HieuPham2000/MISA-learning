@@ -79,3 +79,7 @@ input[type=text], input[type=email] {
   opacity: 0.7;
 } 
 
+input.border-red {
+  border: 1px solid #F65454;
+}
+
