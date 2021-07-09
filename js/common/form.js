@@ -23,6 +23,7 @@ function formatInputMoney(event) {
   if(value == "") {
     return;
   }
+  value = value.replaceAll(",", "");
   value = value.replaceAll(".", "");
   // value = parseInt(value).toLocaleString().replaceAll(",", ".");
 
