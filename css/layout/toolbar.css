@@ -10,10 +10,20 @@
 
 .toolbar-left, .toolbar-right {
   height: 100%;
-}
-
-.toolbar-left {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
+.toolbar-right button#btn-delete {
+  border-color: #F65454;
+  color: #F65454;
+  transition: 0.2s ease-out;
+}
+
+.toolbar-right button#btn-delete:hover {
+  /* background-color: #FFEBEB; */
+  background-color: #F65454;
+  color: #ffffff;
+}
+

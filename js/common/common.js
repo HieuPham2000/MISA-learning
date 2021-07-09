@@ -1,123 +1,132 @@
-$(document).ready(function() {
-  addButtonClearInput();
-  makeCombobox();
-})
+class CommonFunction {
 
-/**
- * Thêm button xóa text trong các ô input
- * Author: pthieu (06/07/2021)
- */
-function addButtonClearInput() {
-  var inputs = $("input[type=text]:not(.header input), input[type=email");
-  inputs.wrap('<div class="input-wrapper"></div>')
-  inputs.after(`
-      <div class="btn-clear-text">
-        <img src="../../content/icon/x.svg" >
-      </div> `);
-
-  $(".btn-clear-text").click(function() {
-    $(this).siblings("input").val("");
-    $(this).siblings("input").trigger("input");
-    // $(this).hide();
-  })
-  
-  inputs.each(function() {
-    if($(this).val()) {
-      $(this).siblings(".btn-clear-text").show();
+  /**
+   * Định dạng dữ liệu lấy từ loadData, nếu null hoặc undefined thì trả về ""
+   * @param {*} data 
+   * @returns {*} data hoặc ""
+   * @author pthieu <06/07/2021>
+   */
+  static formatData(data) {
+    if (data == null || data == undefined) {
+      return "";
     }
-  })
-  
-  inputs.on("input", function() {
-    if($(this).val()) {
-      $(this).siblings(".btn-clear-text").show();
-    } else {
-      $(this).siblings(".btn-clear-text").hide();
-    }
-  })
-}
-
-function makeCombobox() {
-  
-  // Ẩn tất cả dropdown khi click ra ngoài
-  $(document).click(function(event) {
-    var el = event.target;
-    // console.log(el)
-    if( $(".combobox-container").has(el).length == 0 && !$(".combobox-container").is(el)) {
-      // console.log($(".combobox-container").has(el))
-      closeAllDropdown();
-    }
-  })
-
-  $(".combobox-container button").click(function() {
-    toggleDropdownByButton.call(this);
-  })
-
-  $(".selectbox input").click(function() {
-    toggleDropdownByButton.call(this);
-  })
-
-  $(".combobox-container input:not([readonly])").on('focus input', function() {
-    var container = $(this).parents(".combobox-container");
-    openDropdown(container);
-    var value = $(this).val().toLowerCase();
-    container.find("li").each(function() {
-      if($(this).text().toLowerCase().indexOf(value) > -1) {
-        $(this).show();
-      } else {
-        $(this).hide();
-      }
-    })
-  })
-
-  selectItemInDropdown();
-
-}
-
-function closeAllDropdown() {
-  $(".combobox-container").removeClass("open-dropdown");
-  $(".combobox-input").css("border", "1px solid #bbbbbb");
-  $(".selectbox .combobox-input").css("border", "none");
-}
-
-function toggleDropdownByButton() {
-  // $(this).parents(".combobox-container").toggleClass("open-dropdown");
-  var container = $(this).parents(".combobox-container");
-  if(container.is(".open-dropdown")) {
-    container.removeClass("open-dropdown");
-  } else {
-    openDropdown(container);
-  }
-}
-
-function openDropdown(container) {
-  closeAllDropdown();
-  container.addClass("open-dropdown");
-  if(!container.find("input").is("[readonly]")) {
-    container.children(".combobox-input").css("border", "1px solid #019160");
+    return data;
   }
 
+  /** 
+   * Format dữ liệu ngày tháng theo định dạng dd/mm/yyyy
+   * @param {string} date dữ liệu thời gian lấy từ API
+   * @returns {string} xâu định dạng ngày tháng dd/mm/yyyy
+   * 
+   * Author: pthieu (05/07/2021)
+   */
+  static formatDateDDMMYYYY(date) {
+    if (!date) {
+      return '';
+    }
+    let dateOrigin = new Date(date);
+
+    let d = dateOrigin.getDate();
+    d = d > 9 ? d : `0${d}`;
+    let m = dateOrigin.getMonth() + 1; // tháng bắt đầu từ 0
+    m = m > 9 ? m : `0${m}`;
+    let y = dateOrigin.getFullYear();
+    let dateString = `${d}/${m}/${y}`;
+    return dateString;
+  }
+
+  /** 
+   * Format dữ liệu ngày tháng theo định dạng yyyy-mm-dd
+   * @param {string} date dữ liệu thời gian lấy từ API
+   * @returns {string} xâu định dạng ngày tháng yyyy-mm-dd
+   * 
+   * Author: pthieu (05/07/2021)
+   */
+  static formatDateYYYYMMDD(date) {
+    if (!date) {
+      return '';
+    }
+    let dateOrigin = new Date(date);
+
+    let d = dateOrigin.getDate();
+    d = d > 9 ? d : `0${d}`;
+    let m = dateOrigin.getMonth() + 1; // tháng bắt đầu từ 0
+    m = m > 9 ? m : `0${m}`;
+    let y = dateOrigin.getFullYear();
+    let dateString = `${y}-${m}-${d}`;
+    return dateString;
+  }
+
+  /**
+   * Định dạng tiền lương theo dạng xxx.xxx.xxx
+   * @param {number} salary giá trị tiền lương
+   * @returns {string} xâu định dang xxx.xxx.xxx
+   * 
+   * Author: pthieu (06/07/2021)
+   */
+  static formatMoney(salary) {
+    return salary ? salary.toLocaleString("it-IT") : "";
+  }
+
+  /**
+   * Chuyển giá trị work status dạng số sang xâu mô tả tương ứng
+   * @param {number} code 
+   * @returns {string} xâu mô tả
+   * 
+   * Author: pthieu (06/07/2021)
+   */
+  static formatWorkStatus(code) {
+    const code1 = "Đã nghỉ việc";
+    const code2 = "Đang thử việc";
+    const code3 = "Đang làm việc";
+    switch (code) {
+      case 1:
+        return code1;
+      case 2:
+        return code2;
+      case 3:
+        return code3;
+      default:
+        return "";
+    }
+  }
+
+  /**
+   * Loại bỏ dấu tiếng Việt trong xâu
+   * @param {string} str xâu cần loại bỏ dấu tiếng Việt
+   * @returns {string} xâu đã loại bỏ bỏ dấu tiếng Việt
+   * 
+   * Author: pthieu (08/07/2021)
+   */
+  static nonAccentVietnamese(str) {
+    str = str.toLowerCase();
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+    str = str.replace(/đ/g, "d");
+    // Some system encode vietnamese combining accent as individual utf-8 characters
+    str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, ""); // Huyền sắc hỏi ngã nặng 
+    str = str.replace(/\u02C6|\u0306|\u031B/g, ""); // Â, Ê, Ă, Ơ, Ư
+    return str;
+  }
+
+  /**
+   * Thêm thẻ \<strong\> cho thông báo
+   * 
+   * @param {string} msg Nội dung thông báo
+   * @returns Xâu đã được chỉnh sửa
+
+   * Author: pthieu (08/07/2021)
+   */
+  static decoString(msg) {
+    var first = msg.indexOf('"');
+    var last = msg.lastIndexOf('"');
+    if(first > -1) {
+      msg = `${msg.slice(0, first)}<strong>${msg.slice(first, last + 1)}</strong>${msg.slice(last + 1)}`;
+    }
+    return msg;
+  }
 }
-
-function openDropdownByInput() {
-  $(this).parents(".combobox-container").addClass("open-dropdown");
-}
-
-/**
- * 
- */
-function selectItemInDropdown() {
-  $(".combobox-dropdown li").click(function() {
-    var container = $(this).parents(".combobox-container");
-    $(this).siblings(".selected").removeClass("selected");
-    $(this).addClass("selected");
-
-    container.removeClass("open-dropdown");
-
-    var input = container.find("input");
-    input.val( $(this).text() );
-    input.siblings(".btn-clear-text").show();
-
-  })
-}
-
-
