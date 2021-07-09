@@ -1,48 +1,49 @@
 $(document).ready(function() {
+  console.log("hêllo")
+  new Combobox("#combobox-department", "cukcuk.manhnv.net", "api/Department", "Department");
+  new Combobox("#combobox-position", "cukcuk.manhnv.net/v1", "Positions", "Position");
   makeCombobox();
 })
 
 class Combobox {
-  Title = null;
-  List = null;
-  HostName = "cukcuk.manhnv.net/v1";
-  ApiName = null;
+  // Container = null;
+  // HostName = "cukcuk.manhnv.net/v1";
+  // ApiName = null;
+  // Name = null;
 
-  constructor() {
+  constructor(container = null, hostName = "cukcuk.manhnv.net/v1", apiName = null, name = null) {
+    this.Container = container;
+    this.HostName = hostName;
+    this.ApiName = apiName;
+    this.Name = name;
     this.loadListItem();
   }
 
   loadListItem() {
     let me = this;
+    let container = $(me.Container);
 
-    // 1. Lấy dữ liệu từ API về
     $.ajax({
       method: "GET",
       url: `http://${me.HostName}/${me.ApiName}`,
 
     }).done(function (response) {
-
-      let list = me.List;
-
-      console.log(response);
       let data = response;
-
-      // Làm trống bảng
-      $(table).find("tbody").empty();
-
-      // Duyệt từng đối tượng xử lý thông tin
-      $.each(data, function (index, item) {
-
-
-        $(table).find("tbody").append(trHtml);
+      let list = $(container).children(".dropdown");
+      $.each(data, function(index, item) {
+        var propertyName = me.Name + "Name";
+        var li = `<li><i class="fas fa-check"></i>${item[propertyName]}</li>`;
+        list.append(li);
       })
-
+      
     }).fail(function (response) {
+      console.log(response)
       ToastMessage.add("danger", "Tải dữ liệu thất bại!");
     })
 
   }
 }
+
 
 function makeCombobox() {
   
@@ -93,6 +94,7 @@ function toggleDropdownByButton() {
   if(container.is(".open-dropdown")) {
     container.removeClass("open-dropdown");
   } else {
+    container.find("li").show();
     openDropdown(container);
   }
 }

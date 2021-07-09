@@ -88,7 +88,7 @@
     <div class="page-header">
       <div class="title">Danh sách nhân viên</div>
       <div class="feature">
-        <button class="m-btn" onclick="openModal()">
+        <button class="m-btn" id="btn-open-form">
           <div class="m-btn-icon icon-add"></div>
           <div class="btn-text">Thêm nhân viên</div>
         </button>
@@ -98,30 +98,23 @@
       <div class="toolbar-left">
         <input class="icon-search input-search" type="text" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
 
-        <div class="combobox-container">
+        <div class="combobox-container" id="combobox-department">
           <div class="combobox-input">
             <input type="text" placeholder="Chọn/Nhập phòng ban">
             <button type="button"><i class="fas fa-chevron-down"></i></button>
           </div>
-          <ul class="combobox-dropdown">
+          <ul class="combobox-dropdown dropdown">
             <li class="selected"><i class="fas fa-check"></i>Tất cả phòng ban</li>
-            <li><i class="fas fa-check"></i>Phòng Đào tạo</li>
-            <li><i class="fas fa-check"></i>Phòng Nhân sự</li>
-            <li><i class="fas fa-check"></i>Phòng Công nghệ</li>
-            <li><i class="fas fa-check"></i>Phòng Marketing</li>
           </ul>
         </div>
 
-        <div class="combobox-container">
+        <div class="combobox-container" id="combobox-position">
           <div class="combobox-input">
             <input type="text" placeholder="Chọn/Nhập vị trí">
             <button type="button"><i class="fas fa-chevron-down"></i></button>
           </div>
-          <ul class="combobox-dropdown">
+          <ul class="combobox-dropdown dropdown">
             <li class="selected"><i class="fas fa-check"></i>Tất cả vị trí</li>
-            <li><i class="fas fa-check"></i>Giám đốc</li>
-            <li><i class="fas fa-check"></i>Quản lý</li>
-            <li><i class="fas fa-check"></i>Nhân viên</li>
           </ul>
         </div>
 
@@ -348,12 +341,12 @@
   </div>
 
   <script src="../../lib/jquery-3.6.0.js"></script>
+  <script src="../../lib/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
   <script src="../../js/common/common.js"></script>
   <script src="../../js/common/form.js"></script>
   <script src="../../js/common/modal.js"></script>
   <script src="../../js/common/input.js"></script>
   <script src="../../js/common/combobox.js"></script>
-  <script src="../../js/common/toast-msg.js"></script>
   <script src="../../js/base/main.js"></script>
   <script src="../../js/base/base.js"></script>
   <script src="../../js/page/employee.js"></script>
