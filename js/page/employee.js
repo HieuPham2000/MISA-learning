@@ -8,6 +8,7 @@ class EmployeePage extends BasePage {
   Form = $("#form-employee");
   RowId = "EmployeeId";
   ApiName = "Employees";
+  NewCodeName = "NewEmployeeCode";
   Data = {
     "createdDate": null, // string (date -> json)
     "createdBy": null, // string

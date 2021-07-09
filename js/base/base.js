@@ -5,6 +5,7 @@ class BasePage {
   RowId = null;
   HostName = "cukcuk.manhnv.net/v1";
   ApiName = null;
+  NewCodeName = null;
   Data = {};
 
 
@@ -13,6 +14,7 @@ class BasePage {
     // this.initEvents();
   }
 
+  //#region Khởi tạo sự kiện
   /**
    * Khởi tạo sự kiện
    * 
@@ -23,11 +25,14 @@ class BasePage {
     var table = me.TableList;
     var form = me.Form;
 
+
+    // Sự kiện cho nút refresh trên thanh toolbar
     $("#btn-refresh").click(function () {
       me.loadData(true);
     });
 
-    $(table).on("dblclick", "tr", function () {
+    // Sự kiện double click vào hàng => mở fỏm
+    $(table).on("dblclick", "tr", async function () {
       // Bỏ tất cả dấu check và xóa background
       $(this).parent().find("i").removeClass("fas fa-check-square").addClass("far fa-square");
       $(this).siblings().removeClass("selected");
@@ -37,24 +42,65 @@ class BasePage {
 
       // Hiển thị dialog thông tin chi tiết 
       var id = $(this).data(me.RowId);
-      me.getData(id);
-      $(form).data(me.RowId, id);
-      setTimeout(function() {
+      var flag = await me.getData(id);
+      debugger
+      if (flag) {
+        debugger
+        $(form).data(me.RowId, id);
         openModal();
-      }, 200);
-
+      }
     })
 
+    // Sự kiện click hàng => thay đổi checkbox và highlight
     $(table).on("click", "tr", function () {
       $(this).find("i").toggleClass("far fa-square fas fa-check-square");
       // highlight row -> thay đổi background của tr click
       $(this).toggleClass("selected");
     })
 
+    //#region Sự kiện mở form thêm mới (trước đó cần lấy mã code mới để set cho form)
+
+    // Cách 1: sử dụng hàm getNewCode() với $.ajax async = false
+    // $("#btn-open-form").click(function () {
+    //   var newCode = me.getNewCode();
+    //   if (newCode) {
+    //     openModal();
+    //     $(form).find("input").eq(0).val(newCode);
+    //   }
+    // })
+
+    // Cách 2: sử dụng promise then...
+    // $("#btn-open-form").click(function () {
+    //   me.getNewCode().then(
+    //     function(value) {
+    //       console.log(value)
+    //       // if (value) {
+    //         openModal();
+    //         $(form).find("input").eq(0).val(value);
+    //       // }
+    //     },
+    //     function(error) {
+    //       console.log(error);
+    //     }
+    //   );
+    // })
+
+    // Cách 3: sử dụng async/await
+    $("#btn-open-form").click(async function () {
+      var value = await me.getNewCode()
+      if (value) {
+        openModal();
+        $(form).find("input").eq(0).val(value);
+      }
+    });
+    //#endregion
+
+
+    // Sự kiện submit form (add/update)
     $(form).find("#btn-submit").click(function () {
       var id = $(form).data(me.RowId);
       console.log(id);
-      if(id) {
+      if (id) {
         me.update(id);
       } else {
         me.add();
@@ -64,6 +110,7 @@ class BasePage {
       closeModal();
     });
 
+    // Sự kiện đóng form
     var formTitle = $(form).find(".form-title").text();
     $(form).find(".form-icon-close, .m-btn-cancel").click(function () {
       var popupObject = {
@@ -79,20 +126,32 @@ class BasePage {
       PopUp.add("warning", popupObject);
     });
 
+    // Sự kiện ấn nút xóa
     $("#btn-delete").click(function () {
-      var tr = $(table).find("tr.selected");
-      if (tr.length === 0) {
+      var trs = $(table).find("tr.selected");
+      if (trs.length === 0) {
         ToastMessage.add("danger", "Chưa chọn bản ghi!");
-      } else {
-        var index = $(tr).children("td").eq(1).text();
-        var code = $(tr).children("td").eq(2).text();
+      } else if (trs.length === 1) {
+        var index = $(trs).children("td").eq(1).text();
+        var code = $(trs).children("td").eq(2).text();
         var popupObject = {
           title: `Xóa bản ghi #${index}`,
           text: `Bạn có chắc muốn xóa bản ghi #${index} - mã "${code}" hay không?`,
           btnTextCancel: "Hủy",
           btnTextDo: "Xóa",
           do: function () {
-            me.delete(tr.data(me.RowId));
+            me.delete(trs.data(me.RowId));
+          }
+        }
+        PopUp.add("danger", popupObject);
+      } else {
+        var popupObject = {
+          title: `Xóa ${trs.length} bản ghi`,
+          text: `Bạn có chắc muốn xóa ${trs.length} bản ghi hay không?`,
+          btnTextCancel: "Hủy",
+          btnTextDo: "Xóa",
+          do: function () {
+            me.deleteMany(trs);
           }
         }
         PopUp.add("danger", popupObject);
@@ -101,7 +160,9 @@ class BasePage {
     });
 
   }
+  //#endregion
 
+  //#region format value
   /**
    * Định dạng giá trị theo chuẩn để post/put
    * @param {*} value giá trị cần format
@@ -125,13 +186,14 @@ class BasePage {
   formatValueToShow(value, formatType) {
     return value;
   }
+  //#endregion
 
-  //#region 
+  //#region get/load data
   /**
-   * Load dữ liệu danh sách
+   * Load tất cả dữ liệu danh sách 
+   * @param {boolean} msg truyền true nếu muốn trả về toast message, mặc định là fasle
    * 
    * Author: pthieu (05/07/2021)
-   * 
    */
   loadData(msg = false) {
 
@@ -185,7 +247,7 @@ class BasePage {
         $(table).find("tbody").append(trHtml);
       })
 
-      if(msg) {
+      if (msg) {
         ToastMessage.add("success", "Dữ liệu đã được cập nhật!");
       }
     }).fail(function (response) {
@@ -200,48 +262,106 @@ class BasePage {
    * Author: pthieu (05/07/2021)
    * 
    */
-  getData(id) {
+  async getData(id) {
     let me = this;
+    let res = false;
     // 1. Lấy dữ liệu từ API về
-    $.ajax({
+    res = await $.ajax({
       method: "GET",
       url: `http://${me.HostName}/${me.ApiName}/${id}`,
     }).done(function (response) {
       // 2. Xử lý dữ liệu
-      console.log(response);
-      var item = response;
-      var form = me.Form;
-      var inputs = $(form).find(".form-item input");
+      try {
+        console.log(response)
+        var item = response;
+        var form = me.Form;
+        var inputs = $(form).find(".form-item input");
 
-      $.each(inputs, function (inputIndex, inputItem) {
+        $.each(inputs, function (inputIndex, inputItem) {
 
-        var propertyName = $(inputItem).attr("name");
-        var value = item[propertyName];
-        var formatType = $(inputItem).attr("formattype");
-        value = me.formatValueToShow(value, formatType);
+          var propertyName = $(inputItem).attr("name");
+          var value = item[propertyName];
+          var formatType = $(inputItem).attr("formattype");
+          value = me.formatValueToShow(value, formatType);
 
-        $(inputItem).val(value);
-        $(inputItem).trigger("input");
-      })
+          $(inputItem).val(value);
+          // if($(this).val() !== "") {
+          //   $(this).siblings(".btn-clear-text").show();
+          // }
+          $(inputItem).trigger("myLoad");
+        })
 
+        res = true;
+      } catch (error) {
+        console.log(error);
+        ToastMessage.add("danger", `Có lỗi xảy ra! Hãy thử làm mới dữ liệu!`);
+      }
     }).fail(function (response) {
-      ToastMessage.add("danger", `Tải dữ liệu #${id} thất bại!`);
+      console.log(error);
+      ToastMessage.add("danger", `Có lỗi xảy ra! Hãy thử làm mới dữ liệu!`);
     })
+    return res;
+  }
+
+  /**
+   * Lấy mã nhân viên mới (sử dụng async = false)
+   * @returns null | mã code
+   * 
+   * Author: pthieu (09/07/2021)
+   */
+  // getNewCode() {
+  //   let me = this;
+  //   var res = null;
+  //   $.ajax({
+  //     method: "GET",
+  //     url: `http://${me.HostName}/${me.ApiName}/${me.NewCodeName}`,
+  //     async: false,
+  //   }).done(function (response) {
+  //     // console.log(response)
+  //     res = response;
+  //   }).fail(function (response) {
+  //     ToastMessage.add("danger", `Có lỗi xảy ra! Hãy thử làm mới dữ liệu!`);
+  //   })
+
+  //   return res;
+  // }
+
+  /**
+   * Lấy mã nhân viên mới (sử dụng async/await)
+   * @returns null | mã code
+   * 
+   * Author: pthieu (09/07/2021)
+   */
+  async getNewCode() {
+    let me = this;
+    var res = null;
+    try {
+      res = await $.ajax({
+        method: "GET",
+        url: `http://${me.HostName}/${me.ApiName}/${me.NewCodeName}`,
+      })
+    } catch (error) {
+      console.error(error)
+      ToastMessage.add("danger", `Có lỗi xảy ra! Hãy thử làm mới dữ liệu!`);
+    }
+
+    return res;
   }
   //#endregion
 
+  //#region add/update data
+  /**
+   * Thêm bản ghi mới
+   * @author pthieu (09-07-2021)
+   */
   add() {
     let me = this;
 
-    var data = {...me.Data};
+    var data = { ...me.Data };
     // let data= Object.assign({}, me.Data);
     // let data = JSON.parse(JSON.stringify(me.Data));
     var form = me.Form;
     var inputs = $(form).find(".form-item input");
-
-    // var date = (new Date()).toJSON();
-    // data["createdDate"] = date;
-    // data["modifiedDate"] = date;
 
     $.each(inputs, function (inputIndex, inputItem) {
       var propertyName = $(inputItem).attr("name");
@@ -251,8 +371,6 @@ class BasePage {
 
       data[propertyName] = me.formatValueToSave(value, propertyName);
     })
-
-    // console.log(JSON.stringify(data))
 
     $.ajax({
       method: "POST",
@@ -268,9 +386,14 @@ class BasePage {
     })
   }
 
+  /**
+   * Cập nhật bản ghi ứng với id
+   * @param {string} id vd: EmployeeId
+   * @author pthieu (09-07-2021)
+   */
   update(id) {
     let me = this;
-    var data = {...me.Data};
+    var data = { ...me.Data };
     var form = me.Form;
     var inputs = $(form).find(".form-item input");
 
@@ -295,7 +418,15 @@ class BasePage {
       ToastMessage.add("danger", "Có lỗi xảy ra! Cập nhật thất bại!");
     })
   }
+  //#endregion
 
+  //#region delete data
+  /**
+   * Xóa bản ghi tương ứng với id
+   * @param {string} id RowId (Vd: EmployeeId)
+   * 
+   * Author: pthieu (08/07/2021)
+   */
   delete(id) {
     let me = this;
 
@@ -309,6 +440,49 @@ class BasePage {
       ToastMessage.add("danger", "Xóa thất bại! Hãy thử làm mới dữ liệu!");
     })
   }
+
+  /**
+   * Xóa các bản ghi tương ứng các row được chọn
+   * @param {object} trs jQuery.fn.init - danh sách các selected row lấy bằng jQuery selector
+   * 
+   * Author: pthieu (09/07/2021)
+   */
+  deleteMany(trs) {
+    debugger
+    let me = this;
+    var success = [];
+    var error = [];
+
+    $.each(trs, function (trIndex, trItem) {
+      var id = $(trItem).data(me.RowId);
+      var obj = {
+        id: id,
+        code: $(trItem).children("td").eq(1).text()
+      }
+      $.ajax({
+        method: "DELETE",
+        url: `http://${me.HostName}/${me.ApiName}/${id}`,
+      }).done(function (response) {
+        success.push(obj);
+      }).fail(function (response) {
+        error.push(obj);
+      })
+    })
+
+    ToastMessage.add("warning", `Đang xóa ${trs.length} bản ghi! Bạn vui lòng chờ trong giây lát!`);
+
+    setTimeout(function () {
+      if (success.length != 0) {
+        ToastMessage.add("success", `Xóa thành công ${success.length} bản ghi!`);
+      }
+
+      if (error.length != 0) {
+        ToastMessage.add("danger", `Xóa thất bại ${error.length} bản ghi!`);
+      }
+      me.loadData();
+    }, 2000);
+  }
+  //#endregion
 
 
 }
