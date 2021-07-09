@@ -5,6 +5,7 @@
   display: flex;
   border-radius: 4px;
   box-sizing: border-box;
+  border: 1px solid #bbbbbb;
 }
 
   .toolbar .combobox-input {
@@ -17,8 +18,9 @@
   }
 
   .combobox-input:focus{
-    border: 1px solid #019160;
-    /* outline: none; */
+    border: 1px solid #bbbbbb;
+    border-color: #019160;
+    outline: none;
   }
 
 .combobox-input input {
@@ -44,10 +46,11 @@
   background-color: #ffffff;
 }
 
-.toolbar .combobox-input button{
+.combobox-input button{
   border-left: 1px solid #bbbbbb;
 }
 .header .combobox-input button{
+  border: none;
   padding: 0 0 0 10px;
 }
 

@@ -98,7 +98,7 @@
       <div class="toolbar-left">
         <input class="icon-search input-search" type="text" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
 
-        <div class="combobox-container" id="combobox-department">
+        <div class="combobox-container" data-name="Department">
           <div class="combobox-input">
             <input type="text" placeholder="Chọn/Nhập phòng ban">
             <button type="button"><i class="fas fa-chevron-down"></i></button>
@@ -108,13 +108,13 @@
           </ul>
         </div>
 
-        <div class="combobox-container" id="combobox-position">
+        <div class="combobox-container" data-name="Position">
           <div class="combobox-input">
             <input type="text" placeholder="Chọn/Nhập vị trí">
             <button type="button"><i class="fas fa-chevron-down"></i></button>
           </div>
           <ul class="combobox-dropdown dropdown">
-            <li class="selected"><i class="fas fa-check"></i>Tất cả vị trí</li>
+            <li><i class="fas fa-check"></i>Tất cả vị trí</li>
           </ul>
         </div>
 
@@ -212,7 +212,7 @@
                     <ul class="combobox-dropdown">
                       <li><i class="fas fa-check"></i>Nam</li>
                       <li><i class="fas fa-check"></i>Nữ</li>
-                      <li><i class="fas fa-check"></i>Khác</li>
+                      <li><i class="fas fa-check"></i>Không xác định</li>
                     </ul>
                   </div>
                 </div>
@@ -257,30 +257,23 @@
               <div class="row">
                 <div class="form-item">
                   <label for="PositionName">Vị trí</label>
-                  <div class="combobox-container">
+                  <div class="combobox-container" data-name="Position">
                     <div class="combobox-input">
                       <input type="text" placeholder="Chọn/Nhập vị trí" name="PositionName">
                       <button type="button"><i class="fas fa-chevron-down"></i></button>
                     </div>
-                    <ul class="combobox-dropdown">
-                      <li><i class="fas fa-check"></i>Giám đốc</li>
-                      <li><i class="fas fa-check"></i>Quản lý</li>
-                      <li><i class="fas fa-check"></i>Nhân viên</li>
+                    <ul class="combobox-dropdown dropdown">
                     </ul>
                   </div>
                 </div>
                 <div class="form-item">
                   <label for="DepartmentName">Phòng ban</label>
-                  <div class="combobox-container">
+                  <div class="combobox-container" data-name="Department">
                     <div class="combobox-input">
                       <input type="text" placeholder="Chọn/Nhập phòng ban" name="DepartmentName">
                       <button type="button"><i class="fas fa-chevron-down"></i></button>
                     </div>
-                    <ul class="combobox-dropdown">
-                      <li><i class="fas fa-check"></i>Phòng Đào tạo</li>
-                      <li><i class="fas fa-check"></i>Phòng Nhân sự</li>
-                      <li><i class="fas fa-check"></i>Phòng Công nghệ</li>
-                      <li><i class="fas fa-check"></i>Phòng Marketing</li>
+                    <ul class="combobox-dropdown dropdown">
                     </ul>
                   </div>
                 </div>
@@ -330,7 +323,7 @@
         </div>
 
         <div class="form-footer">
-          <button type="button" class="m-btn-default m-btn-cancel"">Hủy</button>
+          <button type="button" class="m-btn-default m-btn-cancel">Hủy</button>
           <button type="button" id="btn-submit" class="m-btn m-btn-default">
             <i class="far fa-save"></i>
             <div class="btn-text">Lưu</div>
@@ -349,6 +342,7 @@
   <script src="../../js/common/combobox.js"></script>
   <script src="../../js/base/main.js"></script>
   <script src="../../js/base/base.js"></script>
+  <script src="../../js/base/validate.js"></script>
   <script src="../../js/page/employee.js"></script>
 </body>
 
