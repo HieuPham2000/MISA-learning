@@ -26,7 +26,7 @@ function addButtonClearInput() {
     }
   })
   
-  inputs.on("input", function() {
+  inputs.on("myLoad input", function() {
     if($(this).val() !== "") {
       $(this).siblings(".btn-clear-text").show();
     } else {
