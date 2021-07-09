@@ -136,3 +136,6 @@ button {
   background-color: #f65454;
   color: #ffffff;
 }
+  .m-btn-danger:hover {
+    opacity: 0.8;
+  }

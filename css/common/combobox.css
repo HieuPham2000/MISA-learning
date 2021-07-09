@@ -16,9 +16,10 @@
     background-color: #019160;
   }
 
-.combobox-input:focus {
-  border: 1px solid #019160;
-}
+  .combobox-input:focus{
+    border: 1px solid #019160;
+    /* outline: none; */
+  }
 
 .combobox-input input {
   height: 100%;
@@ -31,8 +32,7 @@
     font-family: 'GoogleSans-Medium';
     cursor: pointer;
     padding: 0;
-    width: fit-content;
-    background-color: #6b49aa;
+    width: 130px;
   }
 
 .combobox-input button {
@@ -46,6 +46,9 @@
 
 .toolbar .combobox-input button{
   border-left: 1px solid #bbbbbb;
+}
+.header .combobox-input button{
+  padding: 0 0 0 10px;
 }
 
 .combobox-input button i {
@@ -69,12 +72,19 @@ ul.combobox-dropdown {
   width: 100%;
 }
 
+.header ul.combobox-dropdown {
+  top: 26px;
+}
   ul.combobox-dropdown li {
-    width: 100%px;
+    width: 100%;
     height: 40px;
     line-height: 40px;
     font-size: 13px;
     color: #000000;
+  }
+
+  .header ul.combobox-dropdown li{
+    font-size: 12px;
   }
 
     ul.combobox-dropdown li i {
