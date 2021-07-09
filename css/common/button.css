@@ -30,10 +30,12 @@ button {
 .m-second-button {
   box-sizing: border-box;
   height: 40px;
+  width: 40px;
+  text-align: center;
   border: 1px solid #bbbbbb;
   border-radius: 4px;
-  padding-left: 24px;
-  padding-right: 24px;
+  /* padding-left: 24px;
+  padding-right: 24px; */
   background-color: #ffffff;
   text-align: center;
 }
