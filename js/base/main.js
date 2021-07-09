@@ -1,9 +1,9 @@
 $(document).ready( function() {
   toggleMenu();
-
-  // $("#btn-refresh").click(function() {
-  //   location.reload();
+  // $(function() {
+  //   $(".form-modal").draggable().resizable();
   // })
+  
 })
 
 /**-------------------------------
@@ -19,13 +19,23 @@ function toggleMenu() {
   })
 }
 
+/**
+ * Lớp ToastMessage: tạo toast message
+ * @author pthieu (08-07-2021)
+ */
 class ToastMessage {
   static icon = {
     danger: `<i class="fas fa-exclamation-triangle"></i>`,
-    warning: `<i class="fas fa-exclamation-triangle"></i>`,
+    warning: `<i class="fas fa-exclamation-circle"></i>`,
     success: `<i class="fas fa-check"></i>`,
     info: `<i class="fas fa-info"></i>`
   }
+  /**
+   * Tạo toast message
+   * @param {string} type "danger" | "warning" | "success" | "info"
+   * @param {string} msg nội dung
+   * @author pthieu (08-07-2021)
+   */
   static add(type, msg) {
     var toast = 
     $(`<div class="toast-msg toast-msg-${type}">
@@ -45,11 +55,13 @@ class ToastMessage {
     // });
 
     // animate
-    $("#toast-msg-container").append(toast).hide().fadeIn(100);
+    // $("#toast-msg-container").append(toast).hide().fadeIn(100);
+    $("#toast-msg-container").prepend(toast).hide().fadeIn(200);
 
     setTimeout(function() {
       $(toast).fadeOut(500, function() {
-        $(this).remove();
+        $(this).css({"visibility":"hidden",display:'flex'}).slideUp();
+        // $(this).remove();
       })
     }, 2000); 
 
@@ -63,7 +75,17 @@ class ToastMessage {
 
 }
 
+/**
+ * Lớp PopUp: tạo các popup
+ * @author pthieu (08-07-2021)
+ */
 class PopUp {
+  /**
+   * Tạo pop up tương ứng với thông tin truyền vào
+   * @param {string} type "danger" | "warning" | "info"
+   * @param {object} popupObject {title: "string", text: "string", btnTextCancel: "string", btnTextDo: "string", do: callback}
+   * @author pthieu (08-07-2021)
+   */
   static add(type, popupObject) {
 
     var popup = $(`
