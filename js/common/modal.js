@@ -9,5 +9,6 @@ function openModal() {
 
 function closeModal() {
   $(".modal-container form")[0].reset();
+  $(".modal-container form input").removeClass("border-red");
   $(".modal-container").hide();
 }

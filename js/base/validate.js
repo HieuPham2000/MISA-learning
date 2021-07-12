@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
   $("input[required]").on("blur", function () {
-    if(validateEmpty($(this), true) && validateEmail($(this)), true) {
+    if(validateEmpty($(this), true) && validateEmail($(this), true)) {
       console.log("OK");
     } else {
       console.log("error")
@@ -15,7 +15,7 @@ $(document).ready(function () {
     };
   })
 
-
+  setMaxDate();
 })
 
 function validateEmpty(el, msg = false) {
@@ -24,20 +24,14 @@ function validateEmpty(el, msg = false) {
     $(el).addClass("border-red");
     $(el).attr("title", "Thông tin không được để trống!");
     if (msg) {
-      var notice = $(`<div class="notice">Thông tin không được để trống!</div>`);
-
-      $(el).parents(".form-item").append(notice).hide().fadeIn(500);
-      setTimeout(function () {
-        $(notice).fadeOut(1000, function () {
-          $(this).remove();
-        })
-      }, 2000)
+      addNoticeToInput(el, "Thông tin không được để trống!");
     }
-
+    return false;
 
   } else {
     $(el).removeClass("border-red");
     $(el).attr("title", "");
+    return true;
   }
 }
 
@@ -53,14 +47,7 @@ function validateEmail(el, msg = false) {
     $(el).addClass("border-red");
     $(el).attr("title", "Định dạng email không đúng!");
     if (msg) {
-      var notice = $(`<div class="notice">Định dạng email không đúng!</div>`);
-
-      $(el).parents(".form-item").append(notice).hide().fadeIn(500);
-      setTimeout(function () {
-        $(notice).fadeOut(1000, function () {
-          $(this).remove();
-        })
-      }, 2000)
+      addNoticeToInput(el, "Định dạng email không đúng!");
     }
     return false;
   } else {
@@ -68,4 +55,25 @@ function validateEmail(el, msg = false) {
     $(el).attr("title", "");
     return true;
   }
+}
+
+function addNoticeToInput(el, msg) {
+  var notice = $(`<div class="notice">${msg}</div>`);
+
+  $(notice).hide();
+  $(el).parents(".form-item").append(notice);
+  $(notice).fadeIn(500);
+  setTimeout(function () {
+    $(notice).fadeOut(1000, function () {
+      $(this).remove();
+    })
+  }, 2000)
+}
+
+function setMaxDate() {
+  var date = new Date().toJSON();
+
+  var yyyymmdd = CommonFunction.formatDateYYYYMMDD(date);
+  $("input[type=date]").attr("max", yyyymmdd);
+
 }
