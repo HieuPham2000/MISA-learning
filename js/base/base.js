@@ -24,6 +24,8 @@ class BasePage {
     let me = this;
     var table = me.TableList;
     var form = me.Form;
+    var inputs = $(form).find("input");
+    var inputEntityCode = $(inputs).eq(0);
 
 
     // Sự kiện cho nút refresh trên thanh toolbar
@@ -43,9 +45,7 @@ class BasePage {
       // Hiển thị dialog thông tin chi tiết 
       var id = $(this).data(me.RowId);
       var flag = await me.getData(id);
-      debugger
       if (flag) {
-        debugger
         $(form).data(me.RowId, id);
         openModal();
       }
@@ -89,9 +89,12 @@ class BasePage {
     $("#btn-open-form").click(async function () {
       var value = await me.getNewCode()
       if (value) {
-        openModal();
-        $(form).find("input").eq(0).val(value);
+        // $(form).find("input").eq(0).val(value);
+        inputEntityCode.val(value);
       }
+      // mở form cả khi lấy mã mới bị lỗi
+      inputs.trigger("myLoad");
+      openModal();
     });
     //#endregion
 
@@ -342,7 +345,7 @@ class BasePage {
       })
     } catch (error) {
       console.error(error)
-      ToastMessage.add("danger", `Có lỗi xảy ra! Hãy thử làm mới dữ liệu!`);
+      ToastMessage.add("danger", `Lấy mã mới không thành công!`);
     }
 
     return res;
@@ -415,6 +418,7 @@ class BasePage {
       ToastMessage.add("success", "Cập nhật dữ liệu thành công!");
       me.loadData();
     }).fail(function (response) {
+      console.log(response)
       ToastMessage.add("danger", "Có lỗi xảy ra! Cập nhật thất bại!");
     })
   }
@@ -448,7 +452,6 @@ class BasePage {
    * Author: pthieu (09/07/2021)
    */
   deleteMany(trs) {
-    debugger
     let me = this;
     var success = [];
     var error = [];
