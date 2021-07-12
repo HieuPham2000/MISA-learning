@@ -4,6 +4,8 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
+  /* overflow: hidden; */
+  /* transition: 2.5s ease; */
 }
 
 .toast-msg {
@@ -27,7 +29,8 @@
   
   width: 300px;
 
-  transition: 1s ease;
+  /* transition: 2.5s ease; */
+  /* overflow: hidden; */
 }
 
 
