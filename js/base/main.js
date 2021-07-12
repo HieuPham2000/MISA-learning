@@ -10,12 +10,21 @@ $(document).ready( function() {
  * Mở rộng/ thu hẹp sidebar (menu)
  * Author: pthieu (03/07/2021)
  */
+// var count = 0;
+var flag = true;
 function toggleMenu() {
   $(".header-left > .sidebar").click( function() {
-    var toggleWidth = $(".menu").width() == 225 ? "51px" : "225px";
-    var pageLeft = $(".menu").width() == 225 ? "52px" : "226px";
-    $(".menu").animate({width: toggleWidth});
-    $(".page").animate({left: pageLeft});
+    if(flag) {
+      flag = false;
+      // console.log(count);
+      // count ++;
+      $(".menu").toggleClass("collapse");
+      $(".page").toggleClass("expand");
+      setTimeout(() => {
+        flag = true;
+      }, 100);
+    } 
+    
   })
 }
 
@@ -48,29 +57,23 @@ class ToastMessage {
       </div>
     </div>`);
 
-    // no animate
-    // $("#toast-msg-container").append(toast);
-    // $("#toast-msg-container .toast-msg .toast-msg-close").last().click(function() {
-    //   $(this).parent().remove();
-    // });
-
-    // animate
-    // $("#toast-msg-container").append(toast).hide().fadeIn(100);
-    $("#toast-msg-container").prepend(toast).hide().fadeIn(200);
-
-    setTimeout(function() {
-      $(toast).fadeOut(500, function() {
-        $(this).css({"visibility":"hidden",display:'flex'}).slideUp();
-        // $(this).remove();
-      })
-    }, 2000); 
-
-    $("#toast-msg-container .toast-msg .toast-msg-close").last().click(function() {
+    $(toast).children(".toast-msg-close").click(function() {
       var parent = $(this).parent();
-      parent.fadeOut(200, function() {
+      parent.slideUp(500, function() {
         $(this).remove();
       })
     });
+
+    // animate
+    $(toast).hide();
+    $("#toast-msg-container").append(toast);
+    $(toast).fadeIn();
+
+    setTimeout(function() {
+      $(toast).slideUp(500, function() {
+        $(this).remove();
+      });
+    }, 2000); 
   }
 
 }
