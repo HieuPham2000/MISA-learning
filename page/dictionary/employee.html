@@ -105,7 +105,7 @@
       <div class="toolbar-left">
         <input class="icon-search input-search" type="text" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
 
-        <div class="m-combobox" data-name="Department">
+        <div class="m-combobox" data-name="Department" id="filter-department">
           <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập phòng ban">
           <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
           <ul class="m-combobox__dropdown">
@@ -113,7 +113,7 @@
           </ul>
         </div>
 
-        <div class="m-combobox" data-name="Position">
+        <div class="m-combobox" data-name="Position" id="filter-position">
           <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập vị trí">
           <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
           <ul class="m-combobox__dropdown">
@@ -159,7 +159,7 @@
 
     <!-- pagination -->
     <div class="paging-bar">
-      <div class="paging-total">Hiển thị <b>1-20/1000</b> nhân viên</div>
+      <div class="paging-total">Hiển thị <b class="paging-total-detail">1-20/1000</b> nhân viên</div>
 
       <!-- button control page -->
       <div class="paging-number">
@@ -382,6 +382,7 @@
   <script src="../../js/common/input.js"></script>
   <script src="../../js/common/combobox.js"></script>
   <script src="../../js/common/selectbox.js"></script>
+  <script src="../../js/common/pagination.js"></script>
   <!-- script base -->
   <script src="../../js/base/main.js"></script>
   <script src="../../js/base/base.js"></script>
