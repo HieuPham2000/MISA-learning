@@ -1,84 +1,81 @@
-.combobox-container {
-  position: relative;
-}
-.combobox-input {
-  display: flex;
-  border-radius: 4px;
+.m-combobox, .m-combobox * {
   box-sizing: border-box;
+}
+.m-combobox {
+  position: relative;
+  background-color: #ffffff;
+  display: flex;
   border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  
+  height: 40px;
+  width: fit-content;
 }
 
-  .toolbar .combobox-input {
-    border: 1px solid #bbbbbb;
-    height: 40px;
-  }
-  .header .selectbox .combobox-input {
-    height: 24px;
-    background-color: #019160;
-  }
-
-  .combobox-input:focus{
-    border: 1px solid #bbbbbb;
-    border-color: #019160;
+  .m-combobox:focus-within {
+    border-color: #019160 !important;
     outline: none;
   }
 
-.combobox-input input {
-  height: 100%;
-  border: none;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-  .header .selectbox .combobox-input input {
-    display: inline-block;
-    font-family: 'GoogleSans-Medium';
-    cursor: pointer;
-    padding: 0;
-    width: 130px;
+  .m-combobox.border-red {
+    border-color: #F65454 !important;
   }
 
-.combobox-input button {
+.m-combobox__input {
+  height: 100%;
   border: none;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
-  
+  /* border-top-right-radius: 0px; */
+  /* border-bottom-right-radius: 0px; */
+}
+
+
+.m-combobox__btn {
+  border: none;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0 12px;
-  background-color: #ffffff;
-}
-
-.combobox-input button{
   border-left: 1px solid #bbbbbb;
-}
-.header .combobox-input button{
-  border: none;
-  padding: 0 0 0 10px;
+  height: 100%;
 }
 
-.combobox-input button i {
-  font-size: 16px;
-}
+  .m-combobox__btn:focus {
+    outline: none;
+  }
+  .m-combobox__btn > i {
+    font-size: 16px;
+  }
 
-ul.combobox-dropdown {
+  .m-combobox:focus-within .m-combobox__btn {
+    border-color: #019160 !important;
+  }
+
+  .m-combobox.border-red .m-combobox__btn {
+    border-color: #F65454 !important;
+  }
+
+
+.m-combobox__dropdown {
+  list-style: none;
   position: absolute;
   top: 42px;
   z-index: 1;
   /* display: inline-block; */
   display: none;
   background-color: #ffffff;
-  list-style: none;
   margin: 0;
   padding: 0 0 4px 0;
+  width: 100%;
   border-radius: 4px;
+
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   cursor: context-menu;
   user-select: none;
-  width: 100%;
 }
 
-.header ul.combobox-dropdown {
-  top: 26px;
-}
-  ul.combobox-dropdown li {
+.m-combobox__dropdown__item  {
     width: 100%;
     height: 40px;
     line-height: 40px;
@@ -86,45 +83,43 @@ ul.combobox-dropdown {
     color: #000000;
   }
 
-  .header ul.combobox-dropdown li{
-    font-size: 12px;
-  }
-
-    ul.combobox-dropdown li i {
+    .m-combobox__dropdown__item > i {
       visibility: hidden;
-      /* display: none; */
       font-size: 16px;
       margin: 0 10px;
     }
 
-    ul.combobox-dropdown li:hover {
+    .m-combobox__dropdown__item:hover {
       background-color: #E9EBEE;
     }
 
-    ul.combobox-dropdown li.selected {
+    .m-combobox__dropdown__item.active {
+      background-color: #E9EBEE;
+    }
+
+    .m-combobox__dropdown__item.selected {
       color: #ffffff;
       background-color: #019160;
     }
 
-    ul.combobox-dropdown li.selected i {
+    .m-combobox__dropdown__item.hide {
+      display: none;
+    }
+
+    .m-combobox__dropdown__item.selected > i {
       visibility: visible;
     }
 
 
-
-/* .rotate-180deg {
-  transform: rotate(180deg);
-} */
-
-.combobox-container.open-dropdown ul.combobox-dropdown {
-  display: inline-block;
+.m-combobox.open .m-combobox__dropdown {
+  display: initial;
 }
 
-.toolbar .combobox-container.open-dropdown .combobox-input button {
-  border-left-color: #E9EBEE;
+.m-combobox.open .m-combobox__btn {
+  border-color: #E9EBEE;
   background-color: #E9EBEE;
 }
 
-.combobox-container.open-dropdown .combobox-input button i {
-  transform: rotate(180deg);
-}
+  .m-combobox.open .m-combobox__btn > i {
+    transform: rotate(180deg);
+  }
