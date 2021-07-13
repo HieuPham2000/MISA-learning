@@ -3,31 +3,31 @@
 
 <head>
   <title>MISACukCuk - Phần mềm quản lý nhà hàng</title>
+  <!-- lib font awesome -->
   <link href="../../content/font/fontawesome-5.15.1/css/all.min.css" rel="stylesheet" type="text/css" />
 
+  <!-- common css -->
   <link href="../../css/common/main.css" rel="stylesheet" type="text/css" />
-  <link href="../../css/common/toast-messenger.css" rel="stylesheet" type="text/css" />
-  <link href="../../css/common/pop-up.css" rel="stylesheet" type="text/css" />
+
+  <!-- layout css -->
   <link href="../../css/layout/layout.css" rel="stylesheet" type="text/css" />
+
+  <!-- page css -->
   <link href="../../css/page/employee.css" rel="stylesheet" type="text/css" />
   <link href="../../css/page/form-employee.css" rel="stylesheet" type="text/css" />
-  
 </head>
 
 <body>
 
   <!-- toast message -->
-  <div id="toast-msg-container">
-
-  </div>
+  <div id="toast-msg-container"></div>
   <!-- end toast message -->
 
   <!-- pop up -->
-  <div id="popup-container">
-     
-  </div>
+  <div id="popup-container"></div>
   <!-- end pop up -->
 
+  <!-- header -->
   <div class="header">
     <div class="header-left">
       <div class="sidebar"></div>
@@ -35,19 +35,18 @@
     </div>
     <div class="header-right">
       <div class="restaurant-info">
-        <div class="combobox-container selectbox">
-          <div class="combobox-input">
-            <input type="text" placeholder="Chọn/Nhập tình trạng công việc" name="status" value="Nhà hàng Biển Đông"
-              readonly>
-            <button type="button"><i class="fas fa-chevron-down"></i></button>
-          </div>
-          <ul class="combobox-dropdown">
-            <li class="selected"><i class="fas fa-check"></i>Nhà hàng Biển Đông</li>
-            <li><i class="fas fa-check"></i>Nhà hàng Biển Tây</li>
-            <li><i class="fas fa-check"></i>Nhà hàng Biển Nam</li>
-            <li><i class="fas fa-check"></i>Nhà hàng Biển Bắc</li>
+        <!-- select box restaurant -->
+        <div class="m-selectbox">
+          <div class="m-selectbox__content" tabindex="-1">Nhà hàng Biển Đông</div>
+          <div class="m-selectbox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+          <ul class="m-selectbox__dropdown">
+            <li class="m-selectbox__dropdown__item selected"><i class="fas fa-check"></i>Nhà hàng Biển Đông</li>
+            <li class="m-selectbox__dropdown__item"><i class="fas fa-check"></i>Nhà hàng Biển Tây</li>
+            <li class="m-selectbox__dropdown__item"><i class="fas fa-check"></i>Nhà hàng Biển Nam</li>
+            <li class="m-selectbox__dropdown__item"><i class="fas fa-check"></i>Nhà hàng Biển Bắc</li>
           </ul>
         </div>
+        <!-- end select box restaurant -->
       </div>
       <div class="account-info">
         <div class="account-image"></div>
@@ -56,7 +55,9 @@
       </div>
     </div>
   </div>
+  <!-- end header -->
 
+  <!-- menu -->
   <div class="menu">
     <div class="menu-item">
       <div class="menu-item-icon menu-icon-dashboard"></div>
@@ -83,8 +84,11 @@
       <div class="menu-item-text">Cài đặt</div>
     </div>
   </div>
+  <!-- end menu -->
 
+  <!-- main content -->
   <div class="page">
+    <!-- page header -->
     <div class="page-header">
       <div class="title">Danh sách nhân viên</div>
       <div class="feature">
@@ -94,27 +98,26 @@
         </button>
       </div>
     </div>
+    <!-- end page header -->
+
+    <!-- toolbar: search, filter -->
     <div class="toolbar">
       <div class="toolbar-left">
         <input class="icon-search input-search" type="text" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
 
-        <div class="combobox-container" data-name="Department">
-          <div class="combobox-input">
-            <input type="text" placeholder="Chọn/Nhập phòng ban">
-            <button type="button"><i class="fas fa-chevron-down"></i></button>
-          </div>
-          <ul class="combobox-dropdown dropdown">
-            <li class="selected"><i class="fas fa-check"></i>Tất cả phòng ban</li>
+        <div class="m-combobox" data-name="Department">
+          <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập phòng ban">
+          <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+          <ul class="m-combobox__dropdown">
+            <li class="m-combobox__dropdown__item"><i class="fas fa-check"></i>Tất cả phòng ban</li>
           </ul>
         </div>
 
-        <div class="combobox-container" data-name="Position">
-          <div class="combobox-input">
-            <input type="text" placeholder="Chọn/Nhập vị trí">
-            <button type="button"><i class="fas fa-chevron-down"></i></button>
-          </div>
-          <ul class="combobox-dropdown dropdown">
-            <li><i class="fas fa-check"></i>Tất cả vị trí</li>
+        <div class="m-combobox" data-name="Position">
+          <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập vị trí">
+          <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+          <ul class="m-combobox__dropdown">
+            <li class="m-combobox__dropdown__item"><i class="fas fa-check"></i>Tất cả vị trí</li>
           </ul>
         </div>
 
@@ -124,6 +127,9 @@
         <button type="button" class="m-second-button m-btn-refresh" id="btn-refresh"></button>
       </div>
     </div>
+    <!-- end toolbar -->
+
+    <!-- grid - table list -->
     <div class="grid grid-content">
       <table id="tablelist-employee" cellspacing="0">
         <thead>
@@ -146,13 +152,16 @@
           </tr>
         </thead>
 
-        <tbody>
-
-        </tbody>
+        <tbody></tbody>
       </table>
     </div>
+    <!-- end table list -->
+
+    <!-- pagination -->
     <div class="paging-bar">
       <div class="paging-total">Hiển thị <b>1-20/1000</b> nhân viên</div>
+
+      <!-- button control page -->
       <div class="paging-number">
         <div class="m-btn-ctrl-page m-btn-first-page"></div>
         <div class="m-btn-ctrl-page m-btn-prev-page"></div>
@@ -163,31 +172,57 @@
         <div class="m-btn-ctrl-page m-btn-next-page"></div>
         <div class="m-btn-ctrl-page m-btn-last-page"></div>
       </div>
-      <div class="paging-limit">20 nhân viên/trang</div>
+      <!-- end button control page -->
+
+      <!-- selectbox select number of records -->
+      <div class="m-selectbox paging-limit">
+        <div class="m-selectbox__content" tabindex="-1">20 nhân viên/trang</div>
+        <div class="m-selectbox__btn" tabindex="-1"><i class="fas fa-sort"></i></div>
+        <ul class="m-selectbox__dropdown">
+          <li class="m-selectbox__dropdown__item"><i class="fas fa-check"></i>10 nhân viên/trang</li>
+          <li class="m-selectbox__dropdown__item selected"><i class="fas fa-check"></i>20 nhân viên/trang</li>
+          <li class="m-selectbox__dropdown__item"><i class="fas fa-check"></i>30 nhân viên/trang</li>
+        </ul>
+      </div>
+      <!-- end selectbox -->
+
     </div>
+    <!-- end pagination -->
+
   </div>
+  <!-- end main content -->
 
 
-  <!-- Modal add employee -->
+  <!-- modal employee detail -->
   <div class="modal-container">
+    <!-- form modal -->
     <div class="form-modal">
-      <form id="form-employee" method="POST" action="#" autocomplete="on">
+      <form id="form-employee" method="POST" action="#" autocomplete="off">
+        <!-- button x -->
         <div class="form-icon-close">
           <img src="../../content/icon/x.svg">
         </div>
+        <!-- end button x -->
+
         <div class="form-title">Thông tin nhân viên</div>
+        <!-- form content -->
         <div class="form-content">
+          <!-- avatar -->
           <div class="form-content-left">
             <div class="avatar"></div>
             <p class="image-format">(Vui lòng chọn ảnh có định dạng<br>.jpg, .jpeg, .png, .gif.)</p>
           </div>
+          <!-- end avatar -->
+
           <div class="form-content-right">
+            <!-- part -->
             <div class="content-part">
               <div class="part-title">A. Thông tin chung:</div>
+              <!-- row -->
               <div class="row">
                 <div class="form-item">
                   <label for="EmployeeCode">Mã nhân viên (<span>*</span>)</label>
-                  <input type="text" name="EmployeeCode" value="NV000999" placeholder="Nhập mã nhân viên" maxlength="20"
+                  <input type="text" name="EmployeeCode" placeholder="Nhập mã nhân viên" maxlength="20"
                     class="autofocus" autofocus required>
                 </div>
                 <div class="form-item">
@@ -195,133 +230,135 @@
                   <input type="text" name="FullName" placeholder="Nhập họ và tên" maxlength="100" required>
                 </div>
               </div>
+              <!-- end row -->
 
+              <!-- row -->
               <div class="row">
                 <div class="form-item">
                   <label for="DateOfBirth">Ngày sinh</label>
-                  <input type="date" name="DateOfBirth" formattype="yyyy-mm-dd">
+                  <input date type="date" name="DateOfBirth" formattype="yyyy-mm-dd" class="text-align-center">
                 </div>
                 <div class="form-item">
                   <label for="Gender">Giới tính</label>
-                  <div class="combobox-container">
-                    <div class="combobox-input" tabindex="0">
-                      <input type="text" placeholder="Chọn/Nhập giới tính" name="Gender" tabindex="-1"
-                        formattype="gender">
-                      <button type="button" tabindex="-1"><i class="fas fa-chevron-down"></i></button>
-                    </div>
-                    <ul class="combobox-dropdown">
-                      <li><i class="fas fa-check"></i>Nam</li>
-                      <li><i class="fas fa-check"></i>Nữ</li>
-                      <li><i class="fas fa-check"></i>Không xác định</li>
-                    </ul>
+                  <!-- <m-combobox id="cbx-gender-form" 
+                  name="Gender" placeholder="Chọn/Nhập giới tính" 
+                  data-name="Gender"></m-combobox> -->
+                  <div id="cbx-gender-form" class="m-combobox" data-name="Gender">
+                    <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập giới tính" name="Gender" formattype="m-combobox">
+                    <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+                    <ul class="m-combobox__dropdown"></ul>
                   </div>
                 </div>
               </div>
+              <!-- end row -->
 
+              <!-- row -->
               <div class="row">
                 <div class="form-item">
                   <label for="IdentityNumber">Số CMTND/ Căn cước (<span>*</span>)</label>
-                  <input type="text" name="IdentityNumber" placeholder="Nhập số CMTND/ Căn cước" maxlength="12"
-                    onkeypress="return isNumber(event);" required>
+                  <input number type="text" name="IdentityNumber" placeholder="Nhập số CMTND/ Căn cước" maxlength="12" required>
                 </div>
                 <div class="form-item">
                   <label for="IdentityDate">Ngày cấp</label>
-                  <input type="date" name="IdentityDate" formattype="yyyy-mm-dd">
+                  <input date type="date" name="IdentityDate" formattype="yyyy-mm-dd" class="text-align-center">
                 </div>
               </div>
+              <!-- end row -->
 
+              <!-- row -->
               <div class="row">
                 <div class="form-item">
                   <label for="IdentityPlace">Nơi cấp</label>
                   <input type="text" name="IdentityPlace" placeholder="Nhập nơi cấp" maxlength="100">
                 </div>
               </div>
+              <!-- end row -->
 
+              <!-- row -->
               <div class="row">
                 <div class="form-item">
                   <label for="Email">Email (<span>*</span>)</label>
-                  <input type="email" name="Email" placeholder="Nhập email" maxlength="320" required>
+                  <input email type="email" name="Email" placeholder="Nhập email" maxlength="320" required>
                 </div>
                 <div class="form-item">
                   <label for="PhoneNumber">Số điện thoại (<span>*</span>)</label>
-                  <input type="tel" name="PhoneNumber" placeholder="Nhập số điện thoại" maxlength="15"
-                    onkeypress="return isNumber(event);" required>
+                  <input phone type="tel" name="PhoneNumber" placeholder="Nhập số điện thoại" maxlength="30" required>
                 </div>
               </div>
-
+              <!-- end row -->
             </div>
+            <!-- end part -->
 
+            <!-- part -->
             <div class="content-part">
               <div class="part-title">B. Thông tin công việc:</div>
-
+              <!-- row -->
               <div class="row">
                 <div class="form-item">
-                  <label for="PositionName">Vị trí</label>
-                  <div class="combobox-container" data-name="Position">
-                    <div class="combobox-input">
-                      <input type="text" placeholder="Chọn/Nhập vị trí" name="PositionName">
-                      <button type="button"><i class="fas fa-chevron-down"></i></button>
-                    </div>
-                    <ul class="combobox-dropdown dropdown">
-                    </ul>
+                  <label for="PositionId">Vị trí</label>
+                  <!-- <m-combobox id="cbx-position-form" 
+                  name="PositionName" placeholder="Chọn/Nhập vị trí" 
+                  data-name="Position"></m-combobox> -->
+                  <div id="cbx-position-form" class="m-combobox" data-name="Position">
+                    <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập vị trí" name="PositionId" formattype="m-combobox">
+                    <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+                    <ul class="m-combobox__dropdown"></ul>
                   </div>
                 </div>
                 <div class="form-item">
-                  <label for="DepartmentName">Phòng ban</label>
-                  <div class="combobox-container" data-name="Department">
-                    <div class="combobox-input">
-                      <input type="text" placeholder="Chọn/Nhập phòng ban" name="DepartmentName">
-                      <button type="button"><i class="fas fa-chevron-down"></i></button>
-                    </div>
-                    <ul class="combobox-dropdown dropdown">
-                    </ul>
+                  <label for="DepartmentId">Phòng ban</label>
+                  <!-- <m-combobox id="cbx-department-form" 
+                  name="DepartmentName" placeholder="Chọn/Nhập phòng ban" 
+                  data-name="Department"></m-combobox> -->
+                  <div id="cbx-department-form" class="m-combobox" data-name="Department">
+                    <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập phòng ban" name="DepartmentId" formattype="m-combobox">
+                    <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+                    <ul class="m-combobox__dropdown"></ul>
                   </div>
                 </div>
               </div>
-
+              <!-- end row -->
+              <!-- row -->
               <div class="row">
                 <div class="form-item">
                   <label for="PersonalTaxCode">Mã số thuế</label>
-                  <input type="text" name="PersonalTaxCode" placeholder="Nhập mã số thuế" maxlength="13"
-                    onkeypress="return isNumber(event);">
+                  <input number type="text" name="PersonalTaxCode" placeholder="Nhập mã số thuế" maxlength="13">
                 </div>
                 <div class="form-item">
                   <label for="Salary">Mức lương cơ bản</label>
                   <div class="money-input-container">
-                    <input id="salary" type="text" name="Salary" maxlength="14" class="text-align-right"
-                      placeholder="Nhập mức lương cơ bản" onkeypress="return isNumber(event);"
-                      oninput="formatInputMoney(event)" formattype="salary">
+                    <input number salary id="salary" type="text" name="Salary" maxlength="14" class="text-align-right"
+                      placeholder="Nhập mức lương cơ bản" formattype="salary">
                   </div>
                 </div>
               </div>
-
+              <!-- end row -->
+              <!-- row -->
               <div class="row">
                 <div class="form-item">
                   <label for="JoinDate">Ngày gia nhập công ty</label>
-                  <input type="date" name="JoinDate" formattype="yyyy-mm-dd">
+                  <input date type="date" name="JoinDate" formattype="yyyy-mm-dd" class="text-align-center">
                 </div>
                 <div class="form-item">
                   <label for="WorkStatus">Tình trạng công việc</label>
-                  <div class="combobox-container">
-                    <div class="combobox-input">
-                      <input type="text" placeholder="Chọn/Nhập tình trạng công việc" name="WorkStatus"
-                        formattype="work-status">
-                      <button type="button"><i class="fas fa-chevron-down"></i></button>
-                    </div>
-                    <ul class="combobox-dropdown">
-                      <li><i class="fas fa-check"></i>Đang thử việc</li>
-                      <li><i class="fas fa-check"></i>Đang làm việc</li>
-                      <li><i class="fas fa-check"></i>Đã nghỉ việc</li>
-                    </ul>
+                  <!-- <m-combobox id="cbx-workstatus-form" 
+                    name="WorkStatus" placeholder="Chọn/Nhập tình trạng công việc" 
+                    data-name="WorkStatus"></m-combobox> -->
+                  <div id="cbx-workstatus-form" class="m-combobox" data-name="WorkStatus">
+                    <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập tình trạng công việc" name="WorkStatus" formattype="m-combobox">
+                    <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+                    <ul class="m-combobox__dropdown"></ul>
                   </div>
                 </div>
               </div>
-
+              <!-- end row -->
             </div>
-
+            <!-- end part -->
           </div>
         </div>
+        <!-- end form content -->
 
+        <!-- form footer -->
         <div class="form-footer">
           <button type="button" class="m-btn-default m-btn-cancel">Hủy</button>
           <button type="button" id="btn-submit" class="m-btn m-btn-default">
@@ -329,20 +366,27 @@
             <div class="btn-text">Lưu</div>
           </button>
         </div>
+        <!-- end form footer -->
       </form>
     </div>
+    <!-- end form modal -->
   </div>
+  <!-- end modal -->
 
+  <!-- script lib -->
   <script src="../../lib/jquery-3.6.0.js"></script>
-  <script src="../../lib/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+  <!-- script common -->
   <script src="../../js/common/common.js"></script>
   <script src="../../js/common/form.js"></script>
   <script src="../../js/common/modal.js"></script>
   <script src="../../js/common/input.js"></script>
   <script src="../../js/common/combobox.js"></script>
+  <script src="../../js/common/selectbox.js"></script>
+  <!-- script base -->
   <script src="../../js/base/main.js"></script>
   <script src="../../js/base/base.js"></script>
   <script src="../../js/base/validate.js"></script>
+  <!-- script page -->
   <script src="../../js/page/employee.js"></script>
 </body>
 

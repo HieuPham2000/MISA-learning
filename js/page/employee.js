@@ -51,27 +51,28 @@ class EmployeePage extends BasePage {
 
   /**
    * Định dạng giá trị theo chuẩn để post/put
-   * @param {*} value giá trị cần format
-   * @param {string} fieldName tên trường trong mẫu json post
+   * @param {*} text giá trị cần format
+   * @param {string} formatType tên loại định dạng
+   * @param {element} inputItem phần tử input đang xử lý
    * @returns {*} giá trị đã format
    * 
    * Author: pthieu (08/07/2021)
    */
-  formatValueToSave(value, fieldName) {
+  formatValueToSave(text, formatType, inputItem) {
     
-    switch(fieldName) {
+    switch(formatType) {
       case "salary":
-        value = value.replaceAll(".", "");
-        value = value.replaceAll(",", "");
-        return Number(value);
-      case "gender":
-        var mapGender = {"Nữ": 0, "Nam": 1, "Không xác định": 2};
-        return mapGender[value];
+        text = text.replaceAll(".", "");
+        text = text.replaceAll(",", "");
+        return Number(text);
+      case "m-combobox":
+        var container = $(inputItem).parents(".m-combobox");
+        return $(container).getValue();
       default:
-        if(value == "") {
+        if(text == "") {
           return null;
         }
-        return value;
+        return text;
     }
   }
 
@@ -79,11 +80,12 @@ class EmployeePage extends BasePage {
    * Định dạng giá trị để hiển thị
    * @param {*} value giá trị cần format
    * @param {string} formatType tên loại định dạng
+   * @param {element} inputItem phần tử input đang xử lý
    * @returns {*} giá trị đã format
    * 
    * Author: pthieu (08/07/2021)
    */
-   formatValueToShow(value, formatType) {
+   formatValueToShow(value, formatType, inputItem) {
     
     switch(formatType) {
       case "salary":
@@ -93,10 +95,12 @@ class EmployeePage extends BasePage {
       case "yyyy-mm-dd":
         return CommonFunction.formatDateYYYYMMDD(value);
       case "work-status":
-        return CommonFunction.formatWorkStatus(value);
-      case "gender":
-        var mapGender = ["Nữ", "Nam", "Không xác định"];
-        return mapGender[value];
+        var container = $(".m-combobox[data-name=WorkStatus]");
+        var text = $(container).getTextByValue(value);
+        return CommonFunction.formatData(text);
+      case "m-combobox":
+        var container = $(inputItem).parents(".m-combobox");
+        return $(container).getTextByValue(value);
       default:
         return CommonFunction.formatData(value);
     }

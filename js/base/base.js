@@ -44,6 +44,7 @@ class BasePage {
 
       // Hiển thị dialog thông tin chi tiết 
       var id = $(this).data(me.RowId);
+      // Chờ lấy data bằng id trước khi mở modal
       var flag = await me.getData(id);
       if (flag) {
         $(form).data(me.RowId, id);
@@ -87,13 +88,15 @@ class BasePage {
 
     // Cách 3: sử dụng async/await
     $("#btn-open-form").click(async function () {
+      // chờ lấy new code
       var value = await me.getNewCode()
       if (value) {
-        // $(form).find("input").eq(0).val(value);
+        // gán new code cho ô "mã ..." (vd mã nhân viên)
         inputEntityCode.val(value);
       }
-      // mở form cả khi lấy mã mới bị lỗi
+      // kích hoạt sự kiện myLoad => show/hide btn clear text
       inputs.trigger("myLoad");
+      // mở form cả khi lấy mã mới bị lỗi
       openModal();
     });
     //#endregion
@@ -101,14 +104,20 @@ class BasePage {
 
     // Sự kiện submit form (add/update)
     $(form).find("#btn-submit").click(function () {
+      
+      if(validateBeforeSubmit(form) == false) {
+        return;
+      }
+      // Lấy data id đã lưu
       var id = $(form).data(me.RowId);
-      console.log(id);
+
       if (id) {
-        me.update(id);
+        me.update(id); // Nếu có id thì update bản ghi tương ứng
       } else {
-        me.add();
+        me.add(); // Nếu không có id thì add bản ghi mới
       }
 
+      // Bỏ dữ liệu data id
       $(form).removeData(me.RowId);
       closeModal();
     });
@@ -116,6 +125,8 @@ class BasePage {
     // Sự kiện đóng form
     var formTitle = $(form).find(".form-title").text();
     $(form).find(".form-icon-close, .m-btn-cancel").click(function () {
+
+      // object chứa thông tin khởi tạo pop-up
       var popupObject = {
         title: `Đóng Form ${formTitle}`,
         text: `Bạn có chắc muốn đóng "Form ${formTitle}" hay không?`,
@@ -126,17 +137,25 @@ class BasePage {
           closeModal();
         }
       }
+
+      // hiển thị pop-up warning
       PopUp.add("warning", popupObject);
     });
 
     // Sự kiện ấn nút xóa
     $("#btn-delete").click(function () {
+      // tìm các row được chọn
       var trs = $(table).find("tr.selected");
+
       if (trs.length === 0) {
+        // TH1: 0 row => Thông báo
         ToastMessage.add("danger", "Chưa chọn bản ghi!");
       } else if (trs.length === 1) {
+        // TH2: xóa 1 bản ghi
         var index = $(trs).children("td").eq(1).text();
         var code = $(trs).children("td").eq(2).text();
+
+        // object chứa thông tin khởi tạo cho pop-up
         var popupObject = {
           title: `Xóa bản ghi #${index}`,
           text: `Bạn có chắc muốn xóa bản ghi #${index} - mã "${code}" hay không?`,
@@ -146,8 +165,11 @@ class BasePage {
             me.delete(trs.data(me.RowId));
           }
         }
+        // hiện pop-up
         PopUp.add("danger", popupObject);
       } else {
+        // TH3: xóa nhiều bản ghi
+        // tạo object chứa thông tin pop-up
         var popupObject = {
           title: `Xóa ${trs.length} bản ghi`,
           text: `Bạn có chắc muốn xóa ${trs.length} bản ghi hay không?`,
@@ -157,6 +179,7 @@ class BasePage {
             me.deleteMany(trs);
           }
         }
+        // hiện pop-up
         PopUp.add("danger", popupObject);
       }
 
@@ -169,24 +192,26 @@ class BasePage {
   /**
    * Định dạng giá trị theo chuẩn để post/put
    * @param {*} value giá trị cần format
-   * @param {string} fieldName tên trường trong mẫu json post
+   * @param {string} formatType tên loại định dạng
+   * @param {element} inputItem phần tử input đang xử lý
    * @returns {*} giá trị đã format
    * 
    * Author: pthieu (08/07/2021)
    */
-  formatValueToSave(value, fieldName) {
+  formatValueToSave(value, formatType, inputItem) {
     return value;
   }
 
   /**
   * Định dạng giá trị để hiển thị
   * @param {*} value giá trị cần format
-  * @param {string} fieldType tên loại định dạng
+  * @param {string} formatType tên loại định dạng
+  * @param {element} inputItem phần tử input đang xử lý
   * @returns {*} giá trị đã format
   * 
   * Author: pthieu (08/07/2021)
   */
-  formatValueToShow(value, formatType) {
+  formatValueToShow(value, formatType, inputItem) {
     return value;
   }
   //#endregion
@@ -212,7 +237,6 @@ class BasePage {
       // Xác định table sẽ đổ dữ liệu
       let table = me.TableList;
       // 2. Xử lý dữ liệu
-      console.log(response);
       let data = response;
 
       // Làm trống bảng
@@ -250,6 +274,7 @@ class BasePage {
         $(table).find("tbody").append(trHtml);
       })
 
+      // Nếu tham số msg = true thì hiện toast msg thông báo
       if (msg) {
         ToastMessage.add("success", "Dữ liệu đã được cập nhật!");
       }
@@ -275,7 +300,6 @@ class BasePage {
     }).done(function (response) {
       // 2. Xử lý dữ liệu
       try {
-        console.log(response)
         var item = response;
         var form = me.Form;
         var inputs = $(form).find(".form-item input");
@@ -285,15 +309,13 @@ class BasePage {
           var propertyName = $(inputItem).attr("name");
           var value = item[propertyName];
           var formatType = $(inputItem).attr("formattype");
-          value = me.formatValueToShow(value, formatType);
+          value = me.formatValueToShow(value, formatType, inputItem);
 
           $(inputItem).val(value);
-          // if($(this).val() !== "") {
-          //   $(this).siblings(".btn-clear-text").show();
-          // }
           $(inputItem).trigger("myLoad");
         })
 
+        // lấy dữ liệu thành công
         res = true;
       } catch (error) {
         console.log(error);
@@ -360,29 +382,36 @@ class BasePage {
   add() {
     let me = this;
 
+    // Tạo bản sao me.Data
     var data = { ...me.Data };
     // let data= Object.assign({}, me.Data);
     // let data = JSON.parse(JSON.stringify(me.Data));
+
     var form = me.Form;
     var inputs = $(form).find(".form-item input");
 
+    // Duyệt qua tất cả input trong form
     $.each(inputs, function (inputIndex, inputItem) {
+      // Xử lý propertyName
       var propertyName = $(inputItem).attr("name");
       propertyName = propertyName[0].toLowerCase() + propertyName.slice(1);
 
+      // Lấy giá trị và format trước khi lưu vào object data
       var value = $(inputItem).val();
-
-      data[propertyName] = me.formatValueToSave(value, propertyName);
+      var formatType = $(inputItem).attr("formattype");
+      data[propertyName] = me.formatValueToSave(value, formatType, inputItem);
     })
 
+    // gửi dữ liệu qua API
     $.ajax({
       method: "POST",
       url: `http://${me.HostName}/${me.ApiName}`,
-      data: JSON.stringify(data), // Tham số cần thiết cho API(nếu có)
+      data: JSON.stringify(data),
       contentType: "application/json",
       dataType: "json"
     }).done(function (response) {
       ToastMessage.add("success", "Thêm mới dữ liệu thành công!");
+      // load lại dữ liệu table
       me.loadData();
     }).fail(function (response) {
       ToastMessage.add("danger", "Có lỗi xảy ra! Thêm mới thất bại!");
@@ -400,22 +429,28 @@ class BasePage {
     var form = me.Form;
     var inputs = $(form).find(".form-item input");
 
+    // Duyệt qua tất cả input trong form
     $.each(inputs, function (inputIndex, inputItem) {
+      // Xử lý propertyName
       var propertyName = $(inputItem).attr("name");
       propertyName = propertyName[0].toLowerCase() + propertyName.slice(1);
 
+      // Lấy giá trị và format trước khi lưu vào object data
       var value = $(inputItem).val();
-      data[propertyName] = me.formatValueToSave(value, propertyName);
+      var formatType = $(inputItem).attr("formattype");
+      data[propertyName] = me.formatValueToSave(value, formatType, inputItem);
     })
 
+    // gửi dữ liệu qua API
     $.ajax({
       method: "PUT",
       url: `http://${me.HostName}/${me.ApiName}/${id}`,
-      data: JSON.stringify(data), // Tham số cần thiết cho API(nếu có)
+      data: JSON.stringify(data),
       contentType: "application/json",
       dataType: "json"
     }).done(function (response) {
       ToastMessage.add("success", "Cập nhật dữ liệu thành công!");
+      // load lại dữ liệu table
       me.loadData();
     }).fail(function (response) {
       console.log(response)
@@ -426,7 +461,7 @@ class BasePage {
 
   //#region delete data
   /**
-   * Xóa bản ghi tương ứng với id
+   * Xóa 1 bản ghi tương ứng với id
    * @param {string} id RowId (Vd: EmployeeId)
    * 
    * Author: pthieu (08/07/2021)
@@ -439,6 +474,7 @@ class BasePage {
       url: `http://${me.HostName}/${me.ApiName}/${id}`,
     }).done(function (response) {
       ToastMessage.add("success", "Xóa thành công!");
+      // load lại dữ liệu table
       me.loadData();
     }).fail(function (response) {
       ToastMessage.add("danger", "Xóa thất bại! Hãy thử làm mới dữ liệu!");
@@ -446,42 +482,55 @@ class BasePage {
   }
 
   /**
-   * Xóa các bản ghi tương ứng các row được chọn
+   * Xóa các bản ghi tương ứng các row được chọn (Xóa nhiều)
    * @param {object} trs jQuery.fn.init - danh sách các selected row lấy bằng jQuery selector
    * 
    * Author: pthieu (09/07/2021)
    */
   deleteMany(trs) {
     let me = this;
+    // lưu các row xóa thành công
     var success = [];
+    // lưu các row xóa thất bại
     var error = [];
 
+    // Duyệt danh sách các row được chọn
     $.each(trs, function (trIndex, trItem) {
+      // Lấy thông tin data id
       var id = $(trItem).data(me.RowId);
       var obj = {
         id: id,
         code: $(trItem).children("td").eq(1).text()
       }
+
+      // Gọi API xóa
       $.ajax({
         method: "DELETE",
         url: `http://${me.HostName}/${me.ApiName}/${id}`,
       }).done(function (response) {
+        // thành công sẽ thêm vào mảng success
         success.push(obj);
       }).fail(function (response) {
+        // thất bại sẽ thêm vào mảng error
         error.push(obj);
       })
     })
 
+    // Thông báo chờ, do việc xóa nhiều bản ghi gây mất thời gian
     ToastMessage.add("warning", `Đang xóa ${trs.length} bản ghi! Bạn vui lòng chờ trong giây lát!`);
 
+    // setTimeout để chờ xóa xong 
     setTimeout(function () {
+      // Nếu có ít nhất 1 row được xóa thành công thì mới có thông báo thành công
       if (success.length != 0) {
         ToastMessage.add("success", `Xóa thành công ${success.length} bản ghi!`);
       }
-
+      // Nếu có ít nhất 1 row được xóa thất bại thì mới có thông báo thất bại
       if (error.length != 0) {
         ToastMessage.add("danger", `Xóa thất bại ${error.length} bản ghi!`);
       }
+
+      // load lại dữ liệu table
       me.loadData();
     }, 2000);
   }

@@ -4,7 +4,7 @@ class CommonFunction {
    * Định dạng dữ liệu lấy từ loadData, nếu null hoặc undefined thì trả về ""
    * @param {*} data 
    * @returns {*} data hoặc ""
-   * @author pthieu <06/07/2021>
+   * @author pthieu (06-07-2021)
    */
   static formatData(data) {
     if (data == null || data == undefined) {
@@ -17,8 +17,7 @@ class CommonFunction {
    * Format dữ liệu ngày tháng theo định dạng dd/mm/yyyy
    * @param {string} date dữ liệu thời gian lấy từ API
    * @returns {string} xâu định dạng ngày tháng dd/mm/yyyy
-   * 
-   * Author: pthieu (05/07/2021)
+   * @author pthieu (05-07-2021)
    */
   static formatDateDDMMYYYY(date) {
     if (!date) {
@@ -39,8 +38,7 @@ class CommonFunction {
    * Format dữ liệu ngày tháng theo định dạng yyyy-mm-dd
    * @param {string} date dữ liệu thời gian lấy từ API
    * @returns {string} xâu định dạng ngày tháng yyyy-mm-dd
-   * 
-   * Author: pthieu (05/07/2021)
+   * @author pthieu (05-07-2021)
    */
   static formatDateYYYYMMDD(date) {
     if (!date) {
@@ -61,8 +59,7 @@ class CommonFunction {
    * Định dạng tiền lương theo dạng xxx.xxx.xxx
    * @param {number} salary giá trị tiền lương
    * @returns {string} xâu định dang xxx.xxx.xxx
-   * 
-   * Author: pthieu (06/07/2021)
+   * @author pthieu (06-07-2021)
    */
   static formatMoney(salary) {
     return salary ? salary.toLocaleString("it-IT") : "";
@@ -72,8 +69,7 @@ class CommonFunction {
    * Chuyển giá trị work status dạng số sang xâu mô tả tương ứng
    * @param {number} code 
    * @returns {string} xâu mô tả
-   * 
-   * Author: pthieu (06/07/2021)
+   * @author pthieu (06-07-2021)
    */
   static formatWorkStatus(code) {
     const code1 = "Đã nghỉ việc";
@@ -95,8 +91,7 @@ class CommonFunction {
    * Loại bỏ dấu tiếng Việt trong xâu
    * @param {string} str xâu cần loại bỏ dấu tiếng Việt
    * @returns {string} xâu đã loại bỏ bỏ dấu tiếng Việt
-   * 
-   * Author: pthieu (08/07/2021)
+   * @author pthieu (08-07-2021)
    */
   static nonAccentVietnamese(str) {
     str = str.toLowerCase();
@@ -118,8 +113,7 @@ class CommonFunction {
    * 
    * @param {string} msg Nội dung thông báo
    * @returns Xâu đã được chỉnh sửa
-
-   * Author: pthieu (08/07/2021)
+   * @author pthieu (08-07-2021)
    */
   static decoString(msg) {
     var first = msg.indexOf('"');

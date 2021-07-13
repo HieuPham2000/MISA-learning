@@ -5,6 +5,7 @@
   overflow: auto;
   margin-top: 16px;
   background-color: #ffffff;
+  user-select: none;
 }
 
 table {

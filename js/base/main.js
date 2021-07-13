@@ -8,16 +8,15 @@ $(document).ready( function() {
 
 /**-------------------------------
  * Mở rộng/ thu hẹp sidebar (menu)
+ * 
  * Author: pthieu (03/07/2021)
  */
-// var count = 0;
 var flag = true;
 function toggleMenu() {
   $(".header-left > .sidebar").click( function() {
     if(flag) {
       flag = false;
-      // console.log(count);
-      // count ++;
+
       $(".menu").toggleClass("collapse");
       $(".page").toggleClass("expand");
       setTimeout(() => {
