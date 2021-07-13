@@ -30,10 +30,12 @@ button {
 .m-second-button {
   box-sizing: border-box;
   height: 40px;
+  width: 40px;
+  text-align: center;
   border: 1px solid #bbbbbb;
   border-radius: 4px;
-  padding-left: 24px;
-  padding-right: 24px;
+  /* padding-left: 24px;
+  padding-right: 24px; */
   background-color: #ffffff;
   text-align: center;
 }
@@ -51,10 +53,15 @@ button {
 .m-btn-ctrl-page {
   width: 40px;
   height: 40px;
+  border-radius: 4px;
   background-position: center;
   background-repeat: no-repeat;
   cursor: pointer;
 }
+
+  .m-btn-ctrl-page:hover {
+    background-color: #ffffff;
+  }
   .m-btn-first-page {
     background-image: url('../../content/icon/btn-firstpage.svg');
   }
@@ -85,6 +92,7 @@ button {
 }
 
   .m-btn-num-page:hover {
+    border-color: #ffffff;
     background-color: #ffffff;
   }
 
@@ -130,3 +138,6 @@ button {
   background-color: #f65454;
   color: #ffffff;
 }
+  .m-btn-danger:hover {
+    opacity: 0.8;
+  }

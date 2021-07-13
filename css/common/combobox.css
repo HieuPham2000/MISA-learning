@@ -1,0 +1,125 @@
+.m-combobox, .m-combobox * {
+  box-sizing: border-box;
+}
+.m-combobox {
+  position: relative;
+  background-color: #ffffff;
+  display: flex;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  
+  height: 40px;
+  width: fit-content;
+}
+
+  .m-combobox:focus-within {
+    border-color: #019160 !important;
+    outline: none;
+  }
+
+  .m-combobox.border-red {
+    border-color: #F65454 !important;
+  }
+
+.m-combobox__input {
+  height: 100%;
+  border: none;
+  /* border-top-right-radius: 0px; */
+  /* border-bottom-right-radius: 0px; */
+}
+
+
+.m-combobox__btn {
+  border: none;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  border-left: 1px solid #bbbbbb;
+  height: 100%;
+}
+
+  .m-combobox__btn:focus {
+    outline: none;
+  }
+  .m-combobox__btn > i {
+    font-size: 16px;
+  }
+
+  .m-combobox:focus-within .m-combobox__btn {
+    border-color: #019160 !important;
+  }
+
+  .m-combobox.border-red .m-combobox__btn {
+    border-color: #F65454 !important;
+  }
+
+
+.m-combobox__dropdown {
+  list-style: none;
+  position: absolute;
+  top: 42px;
+  z-index: 1;
+  /* display: inline-block; */
+  display: none;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0 0 4px 0;
+  width: 100%;
+  border-radius: 4px;
+
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+  cursor: context-menu;
+  user-select: none;
+}
+
+.m-combobox__dropdown__item  {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 13px;
+    color: #000000;
+  }
+
+    .m-combobox__dropdown__item > i {
+      visibility: hidden;
+      font-size: 16px;
+      margin: 0 10px;
+    }
+
+    .m-combobox__dropdown__item:hover {
+      background-color: #E9EBEE;
+    }
+
+    .m-combobox__dropdown__item.active {
+      background-color: #E9EBEE;
+    }
+
+    .m-combobox__dropdown__item.selected {
+      color: #ffffff;
+      background-color: #019160;
+    }
+
+    .m-combobox__dropdown__item.hide {
+      display: none;
+    }
+
+    .m-combobox__dropdown__item.selected > i {
+      visibility: visible;
+    }
+
+
+.m-combobox.open .m-combobox__dropdown {
+  display: initial;
+}
+
+.m-combobox.open .m-combobox__btn {
+  border-color: #E9EBEE;
+  background-color: #E9EBEE;
+}
+
+  .m-combobox.open .m-combobox__btn > i {
+    transform: rotate(180deg);
+  }

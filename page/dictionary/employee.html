@@ -3,21 +3,31 @@
 
 <head>
   <title>MISACukCuk - Phần mềm quản lý nhà hàng</title>
+  <!-- lib font awesome -->
+  <link href="../../content/font/fontawesome-5.15.1/css/all.min.css" rel="stylesheet" type="text/css" />
+
+  <!-- common css -->
   <link href="../../css/common/main.css" rel="stylesheet" type="text/css" />
-  <link href="../../css/common/button.css" rel="stylesheet" type="text/css" />
-  <link href="../../css/common/icon.css" rel="stylesheet" type="text/css" />
-  <link href="../../css/common/input.css" rel="stylesheet" type="text/css" />
-  <link href="../../css/layout/header.css" rel="stylesheet" type="text/css" />
-  <link href="../../css/layout/menu.css" rel="stylesheet" type="text/css" />
-  <link href="../../css/layout/page.css" rel="stylesheet" type="text/css" />
-  <link href="../../css/layout/toolbar.css" rel="stylesheet" type="text/css" />
-  <link href="../../css/layout/grid.css" rel="stylesheet" type="text/css" />
-  <link href="../../css/layout/paging.css" rel="stylesheet" type="text/css" />
+
+  <!-- layout css -->
+  <link href="../../css/layout/layout.css" rel="stylesheet" type="text/css" />
+
+  <!-- page css -->
   <link href="../../css/page/employee.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/page/form-employee.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 
+  <!-- toast message -->
+  <div id="toast-msg-container"></div>
+  <!-- end toast message -->
+
+  <!-- pop up -->
+  <div id="popup-container"></div>
+  <!-- end pop up -->
+
+  <!-- header -->
   <div class="header">
     <div class="header-left">
       <div class="sidebar"></div>
@@ -25,12 +35,18 @@
     </div>
     <div class="header-right">
       <div class="restaurant-info">
-        <select class="restaurant-select">
-          <option>Nhà hàng Biển Đông</option>
-          <option>Nhà hàng Biển Tây</option>
-          <option>Nhà hàng Biển Nam</option>
-          <option>Nhà hàng Biển Bắc</option>
-        </select>
+        <!-- select box restaurant -->
+        <div class="m-selectbox">
+          <div class="m-selectbox__content" tabindex="-1">Nhà hàng Biển Đông</div>
+          <div class="m-selectbox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+          <ul class="m-selectbox__dropdown">
+            <li class="m-selectbox__dropdown__item selected"><i class="fas fa-check"></i>Nhà hàng Biển Đông</li>
+            <li class="m-selectbox__dropdown__item"><i class="fas fa-check"></i>Nhà hàng Biển Tây</li>
+            <li class="m-selectbox__dropdown__item"><i class="fas fa-check"></i>Nhà hàng Biển Nam</li>
+            <li class="m-selectbox__dropdown__item"><i class="fas fa-check"></i>Nhà hàng Biển Bắc</li>
+          </ul>
+        </div>
+        <!-- end select box restaurant -->
       </div>
       <div class="account-info">
         <div class="account-image"></div>
@@ -39,7 +55,9 @@
       </div>
     </div>
   </div>
+  <!-- end header -->
 
+  <!-- menu -->
   <div class="menu">
     <div class="menu-item">
       <div class="menu-item-icon menu-icon-dashboard"></div>
@@ -66,349 +84,84 @@
       <div class="menu-item-text">Cài đặt</div>
     </div>
   </div>
+  <!-- end menu -->
 
+  <!-- main content -->
   <div class="page">
+    <!-- page header -->
     <div class="page-header">
       <div class="title">Danh sách nhân viên</div>
       <div class="feature">
-        <button class="m-btn">
+        <button class="m-btn" id="btn-open-form">
           <div class="m-btn-icon icon-add"></div>
           <div class="btn-text">Thêm nhân viên</div>
         </button>
       </div>
     </div>
+    <!-- end page header -->
+
+    <!-- toolbar: search, filter -->
     <div class="toolbar">
       <div class="toolbar-left">
-        <input class="icon-search input-search" type="search" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
-        <select>
-          <option selected>Tất cả phòng ban</option>
-          <option>Phòng Đào tạo</option>
-          <option>Phòng Nhân sự</option>
-          <option>Phòng Công nghệ</option>
-          <option>Phòng Marketing</option>
-        </select>
-        <select>
-          <option selected>Tất cả vị trí</option>
-          <option>Giám đốc</option>
-          <option>Quản lý</option>
-          <option>Nhân viên</option>
-        </select>
+        <input class="icon-search input-search" type="text" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
+
+        <div class="m-combobox" data-name="Department">
+          <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập phòng ban">
+          <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+          <ul class="m-combobox__dropdown">
+            <li class="m-combobox__dropdown__item"><i class="fas fa-check"></i>Tất cả phòng ban</li>
+          </ul>
+        </div>
+
+        <div class="m-combobox" data-name="Position">
+          <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập vị trí">
+          <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+          <ul class="m-combobox__dropdown">
+            <li class="m-combobox__dropdown__item"><i class="fas fa-check"></i>Tất cả vị trí</li>
+          </ul>
+        </div>
+
       </div>
       <div class="toolbar-right">
-        <button class="m-second-button m-btn-refresh"></button>
+        <button type="button" class="m-second-button" id="btn-delete"><i class="fas fa-user-times"></i></button>
+        <button type="button" class="m-second-button m-btn-refresh" id="btn-refresh"></button>
       </div>
     </div>
+    <!-- end toolbar -->
+
+    <!-- grid - table list -->
     <div class="grid grid-content">
-      <table cellspacing="0">
-        <colgroup>
-          <col style="width: 150px;" />
-          <col style="width: 200px;" />
-          <col style="width: 100px;" />
-          <col style="width: 150px;" />
-          <col style="width: 300px;" />
-          <col style="width: 100px;" />
-          <col style="width: 150px;" />
-          <col style="width: 150px;" />
-          <col style="width: 150px;" />
-          <col style="width: 150px;" />
-          <col style="width: 200px;" />
-        </colgroup>
+      <table id="tablelist-employee" cellspacing="0">
         <thead>
           <tr>
-            <th>Mã nhân viên</th>
-            <th>Họ và tên</th>
-            <th>Giới tính</th>
-            <th>Ngày sinh</th>
-            <th>Địa chỉ</th>
-            <th>Điện thoại</th>
-            <th>Email</th>
-            <th>Chức vụ</th>
-            <th>Phòng ban</th>
-            <th>Mức lương cơ bản</th>
-            <th>Tình trạng công việc</th>
+            <th style="width: 40px;"></th>
+            <th style="width: 50px;">#</th>
+            <th fieldname="EmployeeCode" style="width: 150px;">Mã nhân viên</th>
+            <th fieldname="FullName" style="width: 200px;">Họ và tên</th>
+            <th fieldname="GenderName" style="width: 150px;">Giới tính</th>
+            <th fieldname="DateOfBirth" style="width: 150px; text-align: center;" formattype="dd/mm/yyyy">Ngày sinh
+            </th>
+            <th fieldname="Address" style="width: 200px;">Địa chỉ</th>
+            <th fieldname="PhoneNumber" style="width: 100px;">Điện thoại</th>
+            <th fieldname="Email" style="width: 250px;">Email</th>
+            <th fieldname="PositionName" style="width: 150px;">Chức vụ</th>
+            <th fieldname="DepartmentName" style="width: 150px;">Phòng ban</th>
+            <th fieldname="Salary" style="width: 150px; text-align: right; padding-right: 10px;" formattype="salary">
+              Mức lương cơ bản</th>
+            <th fieldname="WorkStatus" style="width: 200px;" formattype="work-status">Tình trạng công việc</th>
           </tr>
         </thead>
 
-        <tbody>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-          <tr>
-            <td>NV-458074</td>
-            <td>Nguyễn Văn Nhân</td>
-            <td>Nam</td>
-            <td>24/07/1998</td>
-            <td>Số 50, Lê Thanh Nghị, Bách Khoa, Hai Bà Trưng, Hà Nội</td>
-            <td>0932358346</td>
-            <td>nhan123@gmail.com</td>
-            <td>Giám đốc</td>
-            <td>Phòng Công nghệ</td>
-            <td>28.438.010</td>
-            <td>Đã nghỉ việc</td>
-          </tr>
-
-        </tbody>
+        <tbody></tbody>
       </table>
     </div>
+    <!-- end table list -->
+
+    <!-- pagination -->
     <div class="paging-bar">
-      <div class="paging-total">Hiển thị 1-20/1000 nhân viên</div>
+      <div class="paging-total">Hiển thị <b>1-20/1000</b> nhân viên</div>
+
+      <!-- button control page -->
       <div class="paging-number">
         <div class="m-btn-ctrl-page m-btn-first-page"></div>
         <div class="m-btn-ctrl-page m-btn-prev-page"></div>
@@ -419,12 +172,222 @@
         <div class="m-btn-ctrl-page m-btn-next-page"></div>
         <div class="m-btn-ctrl-page m-btn-last-page"></div>
       </div>
-      <div class="paging-limit">20 nhân viên/trang</div>
-    </div>
-  </div>
+      <!-- end button control page -->
 
+      <!-- selectbox select number of records -->
+      <div class="m-selectbox paging-limit">
+        <div class="m-selectbox__content" tabindex="-1">20 nhân viên/trang</div>
+        <div class="m-selectbox__btn" tabindex="-1"><i class="fas fa-sort"></i></div>
+        <ul class="m-selectbox__dropdown">
+          <li class="m-selectbox__dropdown__item"><i class="fas fa-check"></i>10 nhân viên/trang</li>
+          <li class="m-selectbox__dropdown__item selected"><i class="fas fa-check"></i>20 nhân viên/trang</li>
+          <li class="m-selectbox__dropdown__item"><i class="fas fa-check"></i>30 nhân viên/trang</li>
+        </ul>
+      </div>
+      <!-- end selectbox -->
+
+    </div>
+    <!-- end pagination -->
+
+  </div>
+  <!-- end main content -->
+
+
+  <!-- modal employee detail -->
+  <div class="modal-container">
+    <!-- form modal -->
+    <div class="form-modal">
+      <form id="form-employee" method="POST" action="#" autocomplete="off">
+        <!-- button x -->
+        <div class="form-icon-close">
+          <img src="../../content/icon/x.svg">
+        </div>
+        <!-- end button x -->
+
+        <div class="form-title">Thông tin nhân viên</div>
+        <!-- form content -->
+        <div class="form-content">
+          <!-- avatar -->
+          <div class="form-content-left">
+            <div class="avatar"></div>
+            <p class="image-format">(Vui lòng chọn ảnh có định dạng<br>.jpg, .jpeg, .png, .gif.)</p>
+          </div>
+          <!-- end avatar -->
+
+          <div class="form-content-right">
+            <!-- part -->
+            <div class="content-part">
+              <div class="part-title">A. Thông tin chung:</div>
+              <!-- row -->
+              <div class="row">
+                <div class="form-item">
+                  <label for="EmployeeCode">Mã nhân viên (<span>*</span>)</label>
+                  <input type="text" name="EmployeeCode" placeholder="Nhập mã nhân viên" maxlength="20"
+                    class="autofocus" autofocus required>
+                </div>
+                <div class="form-item">
+                  <label for="FullName">Họ và tên (<span>*</span>)</label>
+                  <input type="text" name="FullName" placeholder="Nhập họ và tên" maxlength="100" required>
+                </div>
+              </div>
+              <!-- end row -->
+
+              <!-- row -->
+              <div class="row">
+                <div class="form-item">
+                  <label for="DateOfBirth">Ngày sinh</label>
+                  <input date type="date" name="DateOfBirth" formattype="yyyy-mm-dd" class="text-align-center">
+                </div>
+                <div class="form-item">
+                  <label for="Gender">Giới tính</label>
+                  <!-- <m-combobox id="cbx-gender-form" 
+                  name="Gender" placeholder="Chọn/Nhập giới tính" 
+                  data-name="Gender"></m-combobox> -->
+                  <div id="cbx-gender-form" class="m-combobox" data-name="Gender">
+                    <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập giới tính" name="Gender" formattype="m-combobox">
+                    <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+                    <ul class="m-combobox__dropdown"></ul>
+                  </div>
+                </div>
+              </div>
+              <!-- end row -->
+
+              <!-- row -->
+              <div class="row">
+                <div class="form-item">
+                  <label for="IdentityNumber">Số CMTND/ Căn cước (<span>*</span>)</label>
+                  <input number type="text" name="IdentityNumber" placeholder="Nhập số CMTND/ Căn cước" maxlength="12" required>
+                </div>
+                <div class="form-item">
+                  <label for="IdentityDate">Ngày cấp</label>
+                  <input date type="date" name="IdentityDate" formattype="yyyy-mm-dd" class="text-align-center">
+                </div>
+              </div>
+              <!-- end row -->
+
+              <!-- row -->
+              <div class="row">
+                <div class="form-item">
+                  <label for="IdentityPlace">Nơi cấp</label>
+                  <input type="text" name="IdentityPlace" placeholder="Nhập nơi cấp" maxlength="100">
+                </div>
+              </div>
+              <!-- end row -->
+
+              <!-- row -->
+              <div class="row">
+                <div class="form-item">
+                  <label for="Email">Email (<span>*</span>)</label>
+                  <input email type="email" name="Email" placeholder="Nhập email" maxlength="320" required>
+                </div>
+                <div class="form-item">
+                  <label for="PhoneNumber">Số điện thoại (<span>*</span>)</label>
+                  <input phone type="tel" name="PhoneNumber" placeholder="Nhập số điện thoại" maxlength="30" required>
+                </div>
+              </div>
+              <!-- end row -->
+            </div>
+            <!-- end part -->
+
+            <!-- part -->
+            <div class="content-part">
+              <div class="part-title">B. Thông tin công việc:</div>
+              <!-- row -->
+              <div class="row">
+                <div class="form-item">
+                  <label for="PositionId">Vị trí</label>
+                  <!-- <m-combobox id="cbx-position-form" 
+                  name="PositionName" placeholder="Chọn/Nhập vị trí" 
+                  data-name="Position"></m-combobox> -->
+                  <div id="cbx-position-form" class="m-combobox" data-name="Position">
+                    <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập vị trí" name="PositionId" formattype="m-combobox">
+                    <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+                    <ul class="m-combobox__dropdown"></ul>
+                  </div>
+                </div>
+                <div class="form-item">
+                  <label for="DepartmentId">Phòng ban</label>
+                  <!-- <m-combobox id="cbx-department-form" 
+                  name="DepartmentName" placeholder="Chọn/Nhập phòng ban" 
+                  data-name="Department"></m-combobox> -->
+                  <div id="cbx-department-form" class="m-combobox" data-name="Department">
+                    <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập phòng ban" name="DepartmentId" formattype="m-combobox">
+                    <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+                    <ul class="m-combobox__dropdown"></ul>
+                  </div>
+                </div>
+              </div>
+              <!-- end row -->
+              <!-- row -->
+              <div class="row">
+                <div class="form-item">
+                  <label for="PersonalTaxCode">Mã số thuế</label>
+                  <input number type="text" name="PersonalTaxCode" placeholder="Nhập mã số thuế" maxlength="13">
+                </div>
+                <div class="form-item">
+                  <label for="Salary">Mức lương cơ bản</label>
+                  <div class="money-input-container">
+                    <input number salary id="salary" type="text" name="Salary" maxlength="14" class="text-align-right"
+                      placeholder="Nhập mức lương cơ bản" formattype="salary">
+                  </div>
+                </div>
+              </div>
+              <!-- end row -->
+              <!-- row -->
+              <div class="row">
+                <div class="form-item">
+                  <label for="JoinDate">Ngày gia nhập công ty</label>
+                  <input date type="date" name="JoinDate" formattype="yyyy-mm-dd" class="text-align-center">
+                </div>
+                <div class="form-item">
+                  <label for="WorkStatus">Tình trạng công việc</label>
+                  <!-- <m-combobox id="cbx-workstatus-form" 
+                    name="WorkStatus" placeholder="Chọn/Nhập tình trạng công việc" 
+                    data-name="WorkStatus"></m-combobox> -->
+                  <div id="cbx-workstatus-form" class="m-combobox" data-name="WorkStatus">
+                    <input class="m-combobox__input" type="text" placeholder="Chọn/Nhập tình trạng công việc" name="WorkStatus" formattype="m-combobox">
+                    <div class="m-combobox__btn" tabindex="-1"><i class="fas fa-chevron-down"></i></div>
+                    <ul class="m-combobox__dropdown"></ul>
+                  </div>
+                </div>
+              </div>
+              <!-- end row -->
+            </div>
+            <!-- end part -->
+          </div>
+        </div>
+        <!-- end form content -->
+
+        <!-- form footer -->
+        <div class="form-footer">
+          <button type="button" class="m-btn-default m-btn-cancel">Hủy</button>
+          <button type="button" id="btn-submit" class="m-btn m-btn-default">
+            <i class="far fa-save"></i>
+            <div class="btn-text">Lưu</div>
+          </button>
+        </div>
+        <!-- end form footer -->
+      </form>
+    </div>
+    <!-- end form modal -->
+  </div>
+  <!-- end modal -->
+
+  <!-- script lib -->
   <script src="../../lib/jquery-3.6.0.js"></script>
+  <!-- script common -->
+  <script src="../../js/common/common.js"></script>
+  <script src="../../js/common/form.js"></script>
+  <script src="../../js/common/modal.js"></script>
+  <script src="../../js/common/input.js"></script>
+  <script src="../../js/common/combobox.js"></script>
+  <script src="../../js/common/selectbox.js"></script>
+  <!-- script base -->
   <script src="../../js/base/main.js"></script>
+  <script src="../../js/base/base.js"></script>
+  <script src="../../js/base/validate.js"></script>
+  <!-- script page -->
+  <script src="../../js/page/employee.js"></script>
 </body>
 
 </html>

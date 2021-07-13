@@ -1,151 +1,109 @@
 $(document).ready(function () {
-  loadData();
-  initEvents();
+  new EmployeePage();
 })
 
-/** ------------------------------
- * Khởi tạo sự kiện cho các sự kiện
- * Author: PTHieu (05/07/2021)
- */
-function initEvents() {
-  // nguyên tắc: 1. thành phần được render trước khi gọi lệnh
-  // Cách 1: chuyển xuống dưới (chỗ ajax)
-  // Cách 2: 
-
-  // không hoạt động đúng do thực hiện trước khi loadData tạo ra tr xong
-  // $("tr").click(function() {
-  //   alert("Á");
-  // })
-
-
-  // đảm bảo tbody đã có trước
-  // có thể dùng document, nhưng khoanh vùng như này rộng quá
-  // khoanh vùng càng hẹp càng tốt. Cần khoanh vùng chuẩn.
-  $("tbody").on("click", "tr", function() {
-    // alert("Á");
-    // Hiển thị dialog thông tin chi tiết của nhân viên
-    // $(".modal-container").show();
-
-    // highlight row -> thay đổi background của tr click
-    // Xóa tất cả background của các tr khác
-    // hoặc có thể xóa background của tất cả tr trước
-    $("tr").siblings().removeAttr("style");
-    $(this).css("background", "greenyellow");    
-  })
-
-  $("tbody").on("dblclick", "tr", function() {
-    // alert("Á");
-    // Hiển thị dialog thông tin chi tiết của nhân viên
-    $(".modal-container").show();    
-  })
-
-  $(".m-btn").click(function() {
-    alert("Ối");
-  })
-}
-
-/** ------------------------------
- * Load dữ liệu danh sách nhân viên
- * Author: PTHieu (05/07/2021)
- * 
- */
-function loadData() {
-
-  // 1. Lấy dữ liệu từ API về
-  // $.ajax({
-  //   url: "http://cukcuk.manhnv.net/v1/Employees",
-  //   method: "GET",
-  // }).done(function(res) {
-  //   var data = res;
-  //   debugger
-  // }).fail(function(res) {
-  // })
-  $.ajax({
-    method: "GET", // GET: lấy dữ liệu; POST: thêm mới; PUT: Sửa; DELETE: Xóa (thực tế có thể thay thế nhau, nhưng do chuẩn Restful) 
-    url: "http://cukcuk.manhnv.net/v1/Employees",
-    // data: "" // Tham số cần thiết cho API(nếu có)
-    // contentType: "application/json",
-    // dataType: "json"
-  }).done(function (response) {
-    // 2. Xử lý dữ liệu
-    console.log(response);
-    // console.table(response);
-    let data = response;
-
-    // $("tbody").empty();
-
-    // Duyệt từng đối tượng xử lý thông tin
-    $.each(data, function (index, item) {
-      // Xử lý dữ liệu
-      
-      let employeeCode = item.EmployeeCode;
-      let fullName = item.FullName;
-      let genderName = item.GenderName;
-      genderName = genderName ? genderName : "";
-
-      // 1. Định dạng ngày / tháng / năm
-      let dateOfBirth = formatDateDDMMYYYY(item.DateOfBirth);
-      
-      let phoneNumber = item.PhoneNumber;
-
-      // 2. Định dạng tiền lương
-      let salary = item.Salary;
-      salary = salary ? salary.toLocaleString("it-IT") : "";
-
-      let positionName = item.PositionName;
-      positionName = positionName ? positionName : "";
-
-      let email = item.Email;
-      let address = item.IdentityPlace;
-      let departmentName = item.DepartmentName;
-      departmentName = departmentName ? departmentName : "";
-
-      let workStatus = item.WorkStatus;
-      workStatus = workStatus ? workStatus : "";
-      
-      let tr = `
-          <tr>
-            <td>${employeeCode}</td>
-            <td>${fullName}</td>
-            <td>${genderName}</td>
-            <td class="text-align-center">${dateOfBirth}</td>
-            <td>${address}</td>
-            <td>${phoneNumber}</td>
-            <td>${email}</td>
-            <td>${positionName}</td>
-            <td>${departmentName}</td>
-            <td class="text-align-right">${salary}</td>
-            <td>${workStatus}</td>
-          </tr>
-      `;
-      $("tbody").append(tr);
-    })
-
-
-  }).fail(function (response) {
-    alert("Load thất bại!");
-  })
-
-
-
-  // 3. Hiển thị dữ liệu (binding dữ liệu lên table)
-}
-
-function formatDateDDMMYYYY(date) {
-  // if(date == null || date == undefined) {
-  //   alert("Lỗi ngày tháng");
-  // }
-  if(!date) {
-    return '';
+class EmployeePage extends BasePage {
+  Title = "Danh sách nhân viên";
+  TableList = $("#tablelist-employee");
+  Form = $("#form-employee");
+  RowId = "EmployeeId";
+  ApiName = "Employees";
+  NewCodeName = "NewEmployeeCode";
+  Data = {
+    "createdDate": null, // string (date -> json)
+    "createdBy": null, // string
+    "modifiedDate": null, // string (date -> json)
+    "modifiedBy": null, // string
+    // "employeeId": null, // string
+    "employeeCode": null, // string
+    "firstName": null, // string
+    "lastName": null, // string
+    "fullName": null, // string
+    "gender": 0, // number
+    "dateOfBirth": null, // string (date -> json)
+    "phoneNumber": null, // string
+    "email": null, // string
+    "address": null, // string
+    "identityNumber": null, // string
+    "identityDate": "2021-07-08T09:54:44.286Z", // string (date -> json)
+    "identityPlace": null,
+    "joinDate": "2021-07-08T09:54:44.286Z", // string (date -> json)
+    "martialStatus": 0, // number
+    "educationalBackground": 0, // number
+    "qualificationId": null, // string
+    "departmentId": null, // string
+    "positionId": null, // string
+    "workStatus": 0, // number
+    "personalTaxCode": null, // string
+    "salary": 0, // number
+    "positionCode": null, // string
+    "positionName": null, // string
+    "departmentCode": null, // string
+    "departmentName": null, // string
+    "qualificationName": null // string
   }
-  let dateOrigin = new Date(date);
 
-  let d = dateOrigin.getDate();
-  d = d > 9 ? d : `0${d}`;
-  let m = dateOrigin.getMonth() + 1; // tháng bắt đầu từ 0
-  m = m > 9 ? m : `0${m}`;
-  let y = dateOrigin.getFullYear();
-  let dateString = `${d}/${m}/${y}`;
-  // return(dateOrigin.toLocaleDateString());
-  return dateString;
+  constructor() {
+    super();
+    this.loadData();
+    this.initEvents();
+  }
+
+  /**
+   * Định dạng giá trị theo chuẩn để post/put
+   * @param {*} text giá trị cần format
+   * @param {string} formatType tên loại định dạng
+   * @param {element} inputItem phần tử input đang xử lý
+   * @returns {*} giá trị đã format
+   * 
+   * Author: pthieu (08/07/2021)
+   */
+  formatValueToSave(text, formatType, inputItem) {
+    
+    switch(formatType) {
+      case "salary":
+        text = text.replaceAll(".", "");
+        text = text.replaceAll(",", "");
+        return Number(text);
+      case "m-combobox":
+        var container = $(inputItem).parents(".m-combobox");
+        return $(container).getValue();
+      default:
+        if(text == "") {
+          return null;
+        }
+        return text;
+    }
+  }
+
+  /**
+   * Định dạng giá trị để hiển thị
+   * @param {*} value giá trị cần format
+   * @param {string} formatType tên loại định dạng
+   * @param {element} inputItem phần tử input đang xử lý
+   * @returns {*} giá trị đã format
+   * 
+   * Author: pthieu (08/07/2021)
+   */
+   formatValueToShow(value, formatType, inputItem) {
+    
+    switch(formatType) {
+      case "salary":
+        return CommonFunction.formatMoney(value);
+      case "dd/mm/yyyy":
+       return CommonFunction.formatDateDDMMYYYY(value);
+      case "yyyy-mm-dd":
+        return CommonFunction.formatDateYYYYMMDD(value);
+      case "work-status":
+        var container = $(".m-combobox[data-name=WorkStatus]");
+        var text = $(container).getTextByValue(value);
+        return CommonFunction.formatData(text);
+      case "m-combobox":
+        var container = $(inputItem).parents(".m-combobox");
+        return $(container).getTextByValue(value);
+      default:
+        return CommonFunction.formatData(value);
+    }
+  }
 }
+

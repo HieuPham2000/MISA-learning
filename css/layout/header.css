@@ -49,20 +49,7 @@
 .header .header-right .restaurant-info {
   margin-left: 16px;
   height: 24px;
-  font-family: 'GoogleSans-Medium';
 }
-
-  .restaurant-info .restaurant-select{
-    border: none;
-    outline: none;
-    padding: 0 10px 0 0;
-    height: 24px;
-    font-family: inherit;
-  }
-  .restaurant-info .restaurant-select option{
-    font-family: 'GoogleSans-Regular';
-  }
-
 
 .header .header-right .account-info {
   display: flex;
@@ -70,6 +57,17 @@
   gap: 16px;
   margin-right: 16px;
 }
+  .header .m-selectbox {
+    height: 24px;
+  }
+
+  .header .m-selectbox .m-selectbox__content {
+    font-family: 'GoogleSans-Medium';
+  }
+  .header .m-selectbox .m-selectbox__dropdown {
+    width: 180px;
+  }
+
 
   .account-info .account-image {
     width: 30px;

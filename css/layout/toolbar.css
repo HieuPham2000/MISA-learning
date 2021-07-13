@@ -10,23 +10,20 @@
 
 .toolbar-left, .toolbar-right {
   height: 100%;
-}
-
-.toolbar-left {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
-  .input-search {
-    width: 300px;
-    padding-left: 40px; 
-  }
 
-  .toolbar-left select {
-    padding: 10px 0px 10px 16px;
-    margin-left: 10px;
-    width: 180px;
-  }
+.toolbar-right button#btn-delete {
+  border-color: #F65454;
+  color: #F65454;
+  transition: 0.2s ease-out;
+}
 
-  .toolbar-left select:focus {
-    border-color: #019160;
-  }
+.toolbar-right button#btn-delete:hover {
+  /* background-color: #FFEBEB; */
+  background-color: #F65454;
+  color: #ffffff;
+}
+
