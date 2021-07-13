@@ -57,6 +57,17 @@
   gap: 16px;
   margin-right: 16px;
 }
+  .header .m-selectbox {
+    height: 24px;
+  }
+
+  .header .m-selectbox .m-selectbox__content {
+    font-family: 'GoogleSans-Medium';
+  }
+  .header .m-selectbox .m-selectbox__dropdown {
+    width: 180px;
+  }
+
 
   .account-info .account-image {
     width: 30px;

@@ -15,3 +15,16 @@
   align-items: center;
   gap: 10px;
 }
+
+.paging-limit {
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 6px 10px;
+}
+
+.paging-limit.m-selectbox .m-selectbox__dropdown {
+  top: unset;
+  bottom: calc(100% + 5px);
+  right: 0;
+  width: calc(100% + 10px);
+}
